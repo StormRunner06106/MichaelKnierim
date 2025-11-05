@@ -1,0 +1,208 @@
+/* Custom styles for portfolio */
+
+.portfolio-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.5rem;
+}
+
+.hero-description {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #9ca3af;
+  max-width: 600px;
+}
+
+.nav-link {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+.project-title {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.project-year {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-weight: 300;
+}
+
+.project-description {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+}
+
+.employment-title {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.employment-role {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.employment-description {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.education-degree {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.education-school {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-weight: 300;
+  margin-bottom: 0.25rem;
+}
+
+.education-focus {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-weight: 300;
+}
+
+.contact-label {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.contact-info {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-weight: 300;
+}
+
+.expertise-category {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.expertise-skills {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.profile-image {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.section-spacing {
+  padding: 4rem 0;
+}
+
+.divider {
+  border-top: 1px solid #374151;
+  margin: 2rem 0;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #13181d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+
+/* Bouncing animation for scroll down button */
+@keyframes bounce {
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%,
+  43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
