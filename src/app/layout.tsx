@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Michael Schramm - Software Engineer & Consultant",
+  title: "Michael Knierim - Researcher, Academic",
   description:
-    "Portfolio of Michael Schramm, Software Engineer and Consultant based in Vienna, Austria. Specializing in web development, cloud hosting, and modern tech stacks.",
+    "Michael Knierim is a researcher focused on advancing human-centered adaptive systems through innovative sensing technologies and neural wearables. Based at Karlsruhe Institute of Technology (KIT), Germany.",
 };
 
 export default function RootLayout({
