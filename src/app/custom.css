@@ -13,14 +13,26 @@
   text-transform: uppercase;
   margin-bottom: 2rem;
   color: #ffffff;
+  padding-bottom: 0.55rem;
+  padding-right: 0.85rem;
+  border-bottom: 3px solid rgb(49, 132, 128);
+  display: inline-block;
 }
 
 .hero-title {
   font-size: 2.5rem;
-  font-weight: 300;
+  font-weight: bold;
   letter-spacing: 0.05em;
-  color: #ffffff;
+  color: rgb(49, 132, 128);
   margin-bottom: 0.5rem;
+  white-space: nowrap;
+  min-height: 3rem;
+}
+
+.hero-title span {
+  color: rgb(49, 132, 128);
+  font-weight: 300;
+  transition: opacity 0.1s;
 }
 
 .hero-subtitle {
@@ -50,7 +62,7 @@
 }
 
 .nav-link:hover {
-  color: #ffffff;
+  color: rgb(49, 132, 128);
 }
 
 .project-title {
@@ -183,7 +195,17 @@ html {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4b5563;
+  background: rgb(49, 132, 128);
+}
+
+/* Link styles */
+a {
+  color: rgb(49, 132, 128);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: rgb(60, 160, 155);
 }
 
 /* Bouncing animation for scroll down button */

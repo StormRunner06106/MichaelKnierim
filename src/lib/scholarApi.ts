@@ -100,7 +100,7 @@ export async function fetchPublications(
   hasPrev: boolean;
   totalResults: number;
 }> {
-  const url = `/api/publications?scholarId=${scholarId}&serpApiKey=${serpApiKey}&start=${start}&limit=${limit}`;
+  const url = `/api/publications?scholarId=${scholarId}&serpApiKey=${serpApiKey}&start=${start}&limit=${limit}&sort=pubdate`;
 
   console.log("Fetching publications from API route:", url);
 

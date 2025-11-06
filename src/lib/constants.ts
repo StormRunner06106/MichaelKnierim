@@ -141,22 +141,21 @@ export const PORTFOLIO_DATA = {
     },
     social: [
       {
-        name: "Facebook",
-        url: "https://facebook.com/profile",
-        icon: "facebook",
+        name: "Mail",
+        url: "mailto:michael.knierim@kit.edu",
+        icon: "email",
       },
       {
-        name: "Instagram",
-        url: "https://instagram.com/profile",
-        icon: "instagram",
+        name: "Google Scholar",
+        url: "https://scholar.google.de/citations?user=GZmvMCMAAAAJ&hl=de",
+        icon: "scholar",
       },
-      { name: "GitHub", url: "https://github.com/profile", icon: "github" },
       {
         name: "LinkedIn",
-        url: "https://linkedin.com/in/profile",
+        url: "https://www.linkedin.com/in/dr-michael-knierim-13397881/",
         icon: "linkedin",
       },
-      { name: "Twitter", url: "https://twitter.com/profile", icon: "twitter" },
+      { name: "GitHub", url: "https://github.com/MKnierim", icon: "github" },
     ],
   },
 

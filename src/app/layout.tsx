@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Michael Knierim - Researcher, Academic",
   description:
-    "Michael Knierim is a researcher focused on advancing human-centered adaptive systems through innovative sensing technologies and neural wearables. Based at Karlsruhe Institute of Technology (KIT), Germany.",
+    "Advancing the development of human-centered adaptive systems through innovative sensing technologies and neural wearables.",
 };
 
 export default function RootLayout({

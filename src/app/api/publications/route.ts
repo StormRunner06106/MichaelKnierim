@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
 
   try {
     // Use start parameter for SerpAPI pagination
-    const url = `https://serpapi.com/search.json?engine=google_scholar_author&author_id=${scholarId}&api_key=${serpApiKey}&start=${start}&num=${limit}`;
+    const url = `https://serpapi.com/search.json?engine=google_scholar_author&author_id=${scholarId}&api_key=${serpApiKey}&start=${start}&num=${limit}&sort=pubdate`;
 
     console.log("Fetching from SerpAPI:", url);
 

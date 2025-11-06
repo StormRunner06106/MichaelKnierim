@@ -21,12 +21,14 @@ import {
   Twitter,
   ChevronDown,
   ArrowUp,
+  Mail,
+  GraduationCap,
 } from "lucide-react";
 
 const getSocialIcon = (iconName: string) => {
   const iconProps = {
     size: 20,
-    className: "text-gray-400 hover:text-white transition-colors",
+    className: "text-gray-400 hover:text-[rgb(49,132,128)] transition-colors",
   };
 
   switch (iconName) {
@@ -40,6 +42,10 @@ const getSocialIcon = (iconName: string) => {
       return <Linkedin {...iconProps} />;
     case "twitter":
       return <Twitter {...iconProps} />;
+    case "email":
+      return <Mail {...iconProps} />;
+    case "scholar":
+      return <GraduationCap {...iconProps} />;
     default:
       return null;
   }
@@ -57,9 +63,60 @@ export default function Home() {
   const [showTopButton, setShowTopButton] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [showImage, setShowImage] = useState(true);
+  const [typedText, setTypedText] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Typing animation effect
+  useEffect(() => {
+    const fullText = PORTFOLIO_DATA.hero.title;
+    let currentIndex = 0;
+    let isDeleting = false;
+    let timeoutId: NodeJS.Timeout;
+
+    const type = () => {
+      if (!isDeleting) {
+        // Typing
+        if (currentIndex <= fullText.length) {
+          setTypedText(fullText.substring(0, currentIndex));
+          currentIndex++;
+          timeoutId = setTimeout(type, 100); // Typing speed
+        } else {
+          // Pause at the end for 2 seconds
+          timeoutId = setTimeout(() => {
+            isDeleting = true;
+            type();
+          }, 2000);
+        }
+      } else {
+        // Deleting
+        if (currentIndex > 0) {
+          currentIndex--;
+          setTypedText(fullText.substring(0, currentIndex));
+          timeoutId = setTimeout(type, 50); // Deleting speed (faster)
+        } else {
+          // Start typing again
+          isDeleting = false;
+          timeoutId = setTimeout(type, 500); // Pause before retyping
+        }
+      }
+    };
+
+    type();
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  // Cursor blink effect
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
+
+    return () => clearInterval(cursorInterval);
   }, []);
 
   useEffect(() => {
@@ -172,7 +229,7 @@ export default function Home() {
           <div className="flex justify-between items-center">
             <Link
               href="/"
-              className={`text-white font-light transition-all duration-300 cursor-pointer ${
+              className={`text-white font-bold transition-all duration-300 cursor-pointer ${
                 isScrolled ? "text-sm" : "text-base"
               }`}
             >
@@ -228,7 +285,12 @@ export default function Home() {
               </div>
             </div>
             <div className="flex-1">
-              <h1 className="hero-title">{PORTFOLIO_DATA.hero.title}</h1>
+              <h1 className="hero-title">
+                {typedText}
+                <span className={showCursor ? "opacity-100" : "opacity-0"}>
+                  |
+                </span>
+              </h1>
               <p className="hero-subtitle">{PORTFOLIO_DATA.hero.subtitle}</p>
               <p className="hero-description">
                 {PORTFOLIO_DATA.hero.description}
@@ -243,11 +305,11 @@ export default function Home() {
                 const aboutSection = document.getElementById("about");
                 aboutSection?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="animate-bounce p-2 rounded-full transition-colors cursor-pointer"
+              className="animate-bounce p-2 rounded-full transition-colors cursor-pointer hover:bg-[rgb(49,132,128)]/20"
             >
               <ChevronDown
                 size={24}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-[rgb(49,132,128)] transition-colors"
               />
             </button>
           </div>
@@ -284,14 +346,17 @@ export default function Home() {
           <div className="space-y-4 mb-8">
             {PORTFOLIO_DATA.researchFocus?.openSourceProjects?.map(
               (project, index) => (
-                <div key={index} className="border-l-2 border-gray-600 pl-4">
+                <div
+                  key={index}
+                  className="border-l-2 border-[rgb(49,132,128)] pl-4"
+                >
                   <h3 className="project-title text-sm">{project.title}</h3>
                   <div className="flex space-x-4 mt-2">
                     <a
                       href={project.doi}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-400 hover:text-blue-300 text-sm cursor-pointer"
+                      className="text-sm cursor-pointer"
                     >
                       DOI
                     </a>
@@ -299,7 +364,7 @@ export default function Home() {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-400 hover:text-blue-300 text-sm cursor-pointer"
+                      className="text-sm cursor-pointer"
                     >
                       GitHub
                     </a>
@@ -372,7 +437,7 @@ export default function Home() {
                           href={course.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-400 hover:text-blue-300 cursor-pointer"
+                          className="cursor-pointer"
                         >
                           {course.text}
                         </a>
@@ -428,7 +493,7 @@ export default function Home() {
                               href={publication.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-400 hover:text-blue-300 text-sm cursor-pointer"
+                              className="text-sm cursor-pointer"
                             >
                               View Paper
                             </a>
@@ -496,7 +561,10 @@ export default function Home() {
 
           <div className="space-y-4">
             {PORTFOLIO_DATA.awards?.items?.map((award, index) => (
-              <div key={index} className="border-l-2 border-gray-600 pl-4">
+              <div
+                key={index}
+                className="border-l-2 border-[rgb(49,132,128)] pl-4"
+              >
                 <p className="expertise-skills">– {award}</p>
               </div>
             )) || []}
@@ -514,7 +582,10 @@ export default function Home() {
 
           <div className="space-y-4">
             {PORTFOLIO_DATA.academicFunctions?.items?.map((activity, index) => (
-              <div key={index} className="border-l-2 border-gray-600 pl-4">
+              <div
+                key={index}
+                className="border-l-2 border-[rgb(49,132,128)] pl-4"
+              >
                 <p className="expertise-skills">– {activity}</p>
               </div>
             )) || []}
@@ -557,7 +628,7 @@ export default function Home() {
               <h3 className="contact-label mt-6">EMAIL</h3>
               <a
                 href={`mailto:${PORTFOLIO_DATA.contact?.office?.email || ""}`}
-                className="contact-info text-blue-400 hover:text-blue-300"
+                className="contact-info"
               >
                 {PORTFOLIO_DATA.contact?.office?.email || ""}
               </a>
@@ -587,7 +658,7 @@ export default function Home() {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-full border border-gray-600 hover:border-gray-400 transition-colors"
+                      className="p-2 rounded-full border border-gray-600 hover:border-[rgb(49,132,128)] hover:bg-[rgb(49,132,128)]/20 transition-all duration-300"
                     >
                       {getSocialIcon(social.icon)}
                     </a>
@@ -618,7 +689,7 @@ export default function Home() {
       <Button
         variant="outline"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`fixed bottom-6 right-6 z-50 p-3 border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 bg-[#13181d]/90 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 ${
+        className={`fixed bottom-6 right-6 z-50 p-3 border-gray-600 text-gray-400 hover:text-white hover:border-[rgb(49,132,128)] hover:bg-[rgb(49,132,128)]/20 bg-[#13181d]/90 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 ${
           showTopButton
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-4 pointer-events-none"
