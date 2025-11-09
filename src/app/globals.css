@@ -2,19 +2,19 @@
 @import "./custom.css";
 
 :root {
-  --background: #13181d;
+  --background: #000000;
   --foreground: #ffffff;
-  --card: #13181d;
+  --card: #000000;
   --card-foreground: #ffffff;
-  --popover: #13181d;
+  --popover: #000000;
   --popover-foreground: #ffffff;
   --primary: #ffffff;
-  --primary-foreground: #13181d;
-  --secondary: #1a2026;
+  --primary-foreground: #000000;
+  --secondary: #000000;
   --secondary-foreground: #ffffff;
-  --muted: #1a2026;
+  --muted: #000000;
   --muted-foreground: #9ca3af;
-  --accent: #1a2026;
+  --accent: #000000;
   --accent-foreground: #ffffff;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
@@ -27,8 +27,7 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-open-sans), "Open Sans", Arial, sans-serif;
   font-weight: 300;
   line-height: 1.6;
 }

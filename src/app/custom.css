@@ -1,5 +1,9 @@
 /* Custom styles for portfolio */
 
+* {
+  letter-spacing: -0.05em;
+}
+
 .portfolio-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -9,8 +13,7 @@
 .section-title {
   font-size: 1.5rem;
   font-weight: 300;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: capitalize;
   margin-bottom: 2rem;
   color: #ffffff;
   padding-bottom: 0.55rem;
@@ -19,28 +22,126 @@
   display: inline-block;
 }
 
-.hero-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  letter-spacing: 0.05em;
-  color: rgb(49, 132, 128);
-  margin-bottom: 0.5rem;
-  white-space: nowrap;
-  min-height: 3rem;
+.work-focus-title {
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 3rem;
+  color: #ffffff;
+  border-bottom: 5px solid rgb(49, 132, 128);
+  display: inline-block;
+  position: relative;
 }
 
-.hero-title span {
+.work-focus-text {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: #ffffff;
+}
+
+.work-focus-text strong {
+  font-weight: 700;
   color: rgb(49, 132, 128);
-  font-weight: 300;
+}
+
+.work-focus-text em {
+  font-style: italic;
+  color: rgb(49, 132, 128);
+  font-weight: 600;
+}
+
+.hero-avatar {
+  border-radius: 50%;
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border: 4px solid rgb(49, 132, 128);
+}
+
+.hero-name-large {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  min-height: 5rem;
+  text-transform: capitalize;
+  letter-spacing: normal;
+}
+
+.hero-name-large span {
+  color: #ffffff;
+  font-weight: 700;
   transition: opacity 0.1s;
+  letter-spacing: normal;
+}
+
+.hero-social-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hero-social-icon:hover {
+  border-color: rgb(49, 132, 128);
+  background: rgba(49, 132, 128, 0.2);
+  transform: translateY(-3px);
+}
+
+.hero-social-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.core-work-section {
+  background-image: url("/newsroom.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.core-work-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1;
+}
+
+.core-work-section > * {
+  position: relative;
+  z-index: 2;
+}
+
+.core-work-bar-item {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: rgb(49, 132, 128);
+  text-transform: capitalize;
+}
+
+.core-work-bar-intro {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #9ca3af;
+  line-height: 1.8;
 }
 
 .hero-subtitle {
   font-size: 1rem;
   font-weight: 300;
   color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  text-transform: capitalize;
   margin-bottom: 1.5rem;
 }
 
@@ -53,11 +154,10 @@
 }
 
 .nav-link {
-  font-size: 0.875rem;
-  font-weight: 300;
+  font-size: 1rem;
+  font-weight: 400;
   color: #9ca3af;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
   transition: color 0.3s ease;
 }
 
@@ -131,8 +231,7 @@
   font-size: 0.875rem;
   font-weight: 400;
   color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  text-transform: capitalize;
   margin-bottom: 0.5rem;
 }
 
@@ -146,8 +245,7 @@
   font-size: 0.875rem;
   font-weight: 400;
   color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  text-transform: capitalize;
   margin-bottom: 0.5rem;
 }
 
@@ -155,8 +253,7 @@
   font-size: 0.875rem;
   color: #9ca3af;
   font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  text-transform: capitalize;
 }
 
 .profile-image {
@@ -167,7 +264,7 @@
 }
 
 .section-spacing {
-  padding: 4rem 0;
+  padding: 0;
 }
 
 .divider {
@@ -186,7 +283,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #13181d;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -227,4 +324,229 @@ a:hover {
   90% {
     transform: translate3d(0, -2px, 0);
   }
+}
+
+/* Featured Work Section */
+.featured-work-title {
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-bottom: 3rem;
+  color: #ffffff;
+  border-bottom: 5px solid rgb(49, 132, 128);
+  display: inline-block;
+}
+
+.featured-work-block {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.featured-work-block:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgb(49, 132, 128);
+}
+
+.featured-work-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.featured-work-block-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: rgb(49, 132, 128);
+  margin-bottom: 1rem;
+}
+
+.featured-work-block-description {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #ffffff;
+}
+
+.featured-work-chevron {
+  color: rgb(49, 132, 128);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.featured-work-list {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  space-y: 1.5rem;
+}
+
+.featured-work-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.featured-work-item:hover {
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateX(4px);
+  border-left-color: rgb(49, 132, 128);
+}
+
+.featured-work-item-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: rgb(49, 132, 128);
+  margin-bottom: 0.5rem;
+}
+
+.featured-work-item-description {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #9ca3af;
+}
+
+.featured-work-link-icon {
+  color: rgb(49, 132, 128);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.featured-work-link-icon:hover {
+  color: rgb(60, 160, 155);
+  background: rgba(49, 132, 128, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Section Divider with Vertical Line */
+.section-divider {
+  padding: 10;
+  height: 8rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10rem;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.section-divider-line {
+  width: 3px;
+  height: 100%;
+  background: white;
+}
+
+/* Publications Section */
+.publication-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.publication-item:last-child {
+  border-bottom: none;
+}
+
+.publication-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgb(49, 132, 128);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.publication-authors {
+  font-size: 18px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.publication-meta {
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+.publication-year {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: rgb(49, 132, 128);
+  flex-shrink: 0;
+}
+
+.publication-link {
+  font-size: 16px;
+  color: rgb(49, 132, 128);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.publication-link:hover {
+  color: rgb(60, 160, 155);
+}
+
+/* Awards and Academic Functions */
+.award-item {
+  padding: 1rem 0;
+  padding-left: 1.5rem;
+  border-left: 3px solid rgb(49, 132, 128);
+}
+
+/* Contact Section */
+.contact-section-label {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: rgb(49, 132, 128);
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+
+.contact-section-info {
+  font-size: 18px;
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+/* Pagination Buttons */
+.pagination button,
+.pagination a {
+  font-size: 16px !important;
+}
+
+/* Contact Section Background */
+.contact-section {
+  background-image: url("/contact.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding-top: 4rem;
+  padding-bottom: 6rem;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: -1;
+}
+
+.contact-section > * {
+  position: relative;
+  z-index: 1;
 }

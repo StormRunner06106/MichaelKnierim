@@ -23,6 +23,7 @@ import {
   ArrowUp,
   Mail,
   GraduationCap,
+  ExternalLink,
 } from "lucide-react";
 
 const getSocialIcon = (iconName: string) => {
@@ -65,6 +66,7 @@ export default function Home() {
   const [showImage, setShowImage] = useState(true);
   const [typedText, setTypedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
+  const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
 
   useEffect(() => {
     setMounted(true);
@@ -171,58 +173,13 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   return (
-    <div className="min-h-screen bg-[#13181d] bg-pattern-dots relative overflow-hidden">
-      {/* Background Shapes - Only Top Area (Hero + About Sections) */}
-      <div className="absolute top-0 left-0 w-full h-[200vh] z-0 pointer-events-none overflow-hidden">
-        {/* Extra Large Circles - Top Area Only */}
-        <div className="absolute -top-64 -right-64 w-[600px] h-[600px] rounded-full bg-[rgba(15,20,25,0.3)] animate-float-slow"></div>
-        <div className="absolute -top-32 left-1/4 w-[500px] h-[500px] rounded-full bg-[rgba(10,15,20,0.25)] animate-float-medium"></div>
-        <div className="absolute top-20 -left-48 w-[400px] h-[400px] rounded-full bg-[rgba(15,20,25,0.35)] animate-float-fast"></div>
-
-        {/* Hero Section Circles */}
-        <div className="absolute top-32 right-1/5 w-80 h-80 rounded-full bg-[rgba(10,15,20,0.3)] animate-float-medium"></div>
-        <div className="absolute top-64 left-1/3 w-96 h-96 rounded-full bg-[rgba(15,20,25,0.25)] animate-float-slow"></div>
-        <div className="absolute top-48 -right-32 w-[450px] h-[450px] rounded-full bg-[rgba(10,15,20,0.28)] animate-float-fast"></div>
-
-        {/* About Section Area Circles */}
-        <div className="absolute top-[120vh] left-2/3 w-64 h-64 rounded-full bg-[rgba(15,20,25,0.2)] animate-float-medium"></div>
-        <div className="absolute top-[140vh] right-1/4 w-72 h-72 rounded-full bg-[rgba(10,15,20,0.22)] animate-float-slow"></div>
-        <div className="absolute top-[160vh] left-1/6 w-80 h-80 rounded-full bg-[rgba(15,20,25,0.3)] animate-float-fast"></div>
-        <div className="absolute top-[110vh] left-1/2 w-56 h-56 rounded-full bg-[rgba(10,15,20,0.25)] animate-float-medium"></div>
-
-        {/* Additional Hero Area Circles */}
-        <div className="absolute top-16 right-2/3 w-64 h-64 rounded-full bg-[rgba(15,20,25,0.28)] animate-float-slow"></div>
-        <div className="absolute top-80 left-1/5 w-48 h-48 rounded-full bg-[rgba(10,15,20,0.2)] animate-float-medium"></div>
-
-        {/* Large Background Circle - Hero Area */}
-        <div className="absolute top-[50vh] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[rgba(15,20,25,0.15)] animate-float-slow"></div>
-      </div>
-
-      {/* Top Wave SVG */}
-      <div className="absolute top-0 left-0 w-full h-64 z-5">
-        <svg
-          className="w-full h-full"
-          viewBox="0 0 1200 320"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-            fill="rgba(15, 20, 25, 0.6)"
-          />
-          <path
-            d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,117.3C960,128,1056,128,1152,106.7C1248,85,1344,43,1392,21.3L1440,0L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-            fill="rgba(10, 15, 20, 0.4)"
-          />
-        </svg>
-      </div>
-
+    <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Navigation */}
       <nav
         className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${
           isScrolled
-            ? "bg-[#13181d]/95 backdrop-blur-md border-b border-gray-700 shadow-lg py-2"
-            : "bg-[#13181d]/80 backdrop-blur-sm border-b border-transparent py-4"
+            ? "bg-black/95 backdrop-blur-md border-b border-gray-700 shadow-lg py-2"
+            : "bg-black/80 backdrop-blur-sm border-b border-transparent py-4"
         }`}
       >
         <div className="portfolio-container">
@@ -230,7 +187,7 @@ export default function Home() {
             <Link
               href="/"
               className={`text-white font-bold transition-all duration-300 cursor-pointer ${
-                isScrolled ? "text-sm" : "text-base"
+                isScrolled ? "text-lg" : "text-xl"
               }`}
             >
               {PORTFOLIO_DATA.personal.name}
@@ -253,239 +210,284 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center pt-20 z-20">
-        <div className="portfolio-container">
-          <div className="flex items-center space-x-16">
-            <div className="flex-shrink-0">
-              <div className="profile-image bg-gray-600 overflow-hidden flex items-center justify-center relative">
-                {mounted ? (
-                  showImage ? (
-                    <img
-                      src="/avatar.jpg"
-                      alt={`${PORTFOLIO_DATA.personal.name} - Profile Picture`}
-                      className="w-full h-full object-cover"
-                      onError={() => setShowImage(false)}
-                    />
-                  ) : (
-                    <div className="text-white text-6xl font-light">
-                      {PORTFOLIO_DATA.personal.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </div>
-                  )
+      <section className="relative min-h-screen flex items-center justify-center pt-20 z-20 overflow-hidden">
+        {/* Video Background - Hero Only */}
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover"
+          >
+            <source src="/banner.mp4" type="video/mp4" />
+          </video>
+          {/* Black Overlay */}
+          <div className="absolute top-0 left-0 w-full h-full bg-black/90"></div>
+        </div>
+
+        <div className="portfolio-container text-center relative z-10">
+          {/* Avatar */}
+          <div className="flex justify-center mb-8">
+            <div className="hero-avatar bg-gray-600 overflow-hidden flex items-center justify-center relative">
+              {mounted ? (
+                showImage ? (
+                  <img
+                    src="/avatar.jpg"
+                    alt={`${PORTFOLIO_DATA.personal.name} - Profile Picture`}
+                    className="w-full h-full object-cover"
+                    onError={() => setShowImage(false)}
+                  />
                 ) : (
-                  <div className="text-white text-6xl font-light">
+                  <div className="text-white text-6xl font-bold">
                     {PORTFOLIO_DATA.personal.name
                       .split(" ")
                       .map((n) => n[0])
                       .join("")}
                   </div>
-                )}
-              </div>
-            </div>
-            <div className="flex-1">
-              <h1 className="hero-title">
-                {typedText}
-                <span className={showCursor ? "opacity-100" : "opacity-0"}>
-                  |
-                </span>
-              </h1>
-              <p className="hero-subtitle">{PORTFOLIO_DATA.hero.subtitle}</p>
-              <p className="hero-description">
-                {PORTFOLIO_DATA.hero.description}
-              </p>
+                )
+              ) : (
+                <div className="text-white text-6xl font-bold">
+                  {PORTFOLIO_DATA.personal.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Scroll Down Button */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-            <button
-              onClick={() => {
-                const aboutSection = document.getElementById("about");
-                aboutSection?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="animate-bounce p-2 rounded-full transition-colors cursor-pointer hover:bg-[rgb(49,132,128)]/20"
-            >
-              <ChevronDown
-                size={24}
-                className="text-gray-400 hover:text-[rgb(49,132,128)] transition-colors"
-              />
-            </button>
+          {/* Name with typing animation */}
+          <h1 className="hero-name-large mb-12">
+            {typedText}
+            <span className={showCursor ? "opacity-100" : "opacity-0"}>|</span>
+          </h1>
+
+          {/* Social Icons */}
+          <div className="flex justify-center space-x-6 mb-12">
+            {PORTFOLIO_DATA.contact?.social?.map((social, index) => (
+              <a
+                key={index}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-social-icon"
+              >
+                {getSocialIcon(social.icon)}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Scroll Down Button */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+          <button
+            onClick={() => {
+              const coreWorkSection = document.getElementById("core-work");
+              coreWorkSection?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="animate-bounce p-2 rounded-full transition-colors cursor-pointer hover:bg-[rgb(49,132,128)]/20"
+          >
+            <ChevronDown
+              size={24}
+              className="text-gray-400 hover:text-[rgb(49,132,128)] transition-colors"
+            />
+          </button>
+        </div>
+      </section>
+
+      {/* Core Work & Introduction Bar */}
+      <section
+        id="core-work"
+        className="w-full py-16 z-20 relative core-work-section"
+      >
+        <div className="portfolio-container text-center">
+          {/* Core Work */}
+          <div className="mb-12">
+            <div className="space-y-4">
+              {PORTFOLIO_DATA.hero.coreWork?.map((work, index) => (
+                <p
+                  key={index}
+                  className="core-work-bar-item"
+                  style={
+                    index == 0 ? { color: "white", marginBottom: "0px" } : {}
+                  }
+                >
+                  {work}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          {/* Introduction */}
+          <div>
+            <p className="core-work-bar-intro max-w-4xl mx-auto">
+              {PORTFOLIO_DATA.hero.introduction}
+            </p>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="section-spacing relative z-20">
+      {/* Work Focus Section */}
+      <section id="work-focus" className="relative z-20 pt-16">
         <div className="portfolio-container">
-          <h2 className="section-title">{PORTFOLIO_DATA.about.title}</h2>
-          <div className="grid grid-cols-2 gap-12">
-            {PORTFOLIO_DATA.about.paragraphs.map((paragraph, index) => (
-              <div key={index}>
-                <p className="hero-description">{paragraph}</p>
+          <h2 className="work-focus-title">
+            {PORTFOLIO_DATA.workFocus?.title || "Work Focus"}
+          </h2>
+          <div className="space-y-8">
+            {PORTFOLIO_DATA.workFocus?.paragraphs.map((paragraph, index) => (
+              <p
+                key={index}
+                className="work-focus-text"
+                dangerouslySetInnerHTML={{ __html: paragraph.text }}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Divider */}
+      <div className="section-divider relative z-20">
+        <div className="section-divider-line"></div>
+      </div>
+
+      {/* Recognitions Section */}
+      <section id="recognitions" className="section-spacing relative z-20">
+        <div className="portfolio-container">
+          <h2 className="work-focus-title">
+            {PORTFOLIO_DATA.recognitions?.title || "Recognitions"}
+          </h2>
+          <div className="space-y-8">
+            {PORTFOLIO_DATA.recognitions?.paragraphs.map((paragraph, index) => (
+              <p
+                key={index}
+                className="work-focus-text"
+                dangerouslySetInnerHTML={{ __html: paragraph.text }}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section Divider */}
+      <div className="section-divider relative z-20">
+        <div className="section-divider-line"></div>
+      </div>
+
+      {/* Featured Work Section */}
+      <section id="featured-work" className="section-spacing relative z-20">
+        <div className="portfolio-container">
+          <h2 className="featured-work-title text-center">
+            {PORTFOLIO_DATA.featuredWork?.title || "Featured Work"}
+          </h2>
+          <div className="space-y-6">
+            {PORTFOLIO_DATA.featuredWork?.categories.map((category, index) => (
+              <div key={index} className="featured-work-block">
+                <div
+                  className="featured-work-header cursor-pointer"
+                  onClick={() => {
+                    setExpandedCategories((prev) =>
+                      prev.includes(index)
+                        ? prev.filter((i) => i !== index)
+                        : [...prev, index]
+                    );
+                  }}
+                >
+                  <div className="flex-1">
+                    <h3 className="featured-work-block-title">
+                      {category.title}
+                    </h3>
+                    <p className="featured-work-block-description">
+                      {category.description}
+                    </p>
+                  </div>
+                  <ChevronDown
+                    size={24}
+                    className={`featured-work-chevron ${
+                      expandedCategories.includes(index) ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+
+                {expandedCategories.includes(index) && (
+                  <div className="featured-work-list">
+                    {category.selectedWorks.map((work, workIndex) => (
+                      <div key={workIndex} className="featured-work-item">
+                        <div className="flex-1">
+                          <h4 className="featured-work-item-title">
+                            {work.title}
+                          </h4>
+                          <p className="featured-work-item-description">
+                            {work.description}
+                          </p>
+                        </div>
+                        <a
+                          href={work.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="featured-work-link-icon"
+                        >
+                          <ExternalLink size={20} />
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Research Focus Section */}
-      <section id="research" className="section-spacing relative z-20">
-        <div className="portfolio-container">
-          <h2 className="section-title">
-            {PORTFOLIO_DATA.researchFocus?.title || "RESEARCH FOCUS"}
-          </h2>
-          <p className="hero-description mb-6">
-            {PORTFOLIO_DATA.researchFocus?.description || ""}
-          </p>
-          <p className="hero-description mb-8">
-            {PORTFOLIO_DATA.researchFocus?.ethicalNote || ""}
-          </p>
-
-          <div className="space-y-4 mb-8">
-            {PORTFOLIO_DATA.researchFocus?.openSourceProjects?.map(
-              (project, index) => (
-                <div
-                  key={index}
-                  className="border-l-2 border-[rgb(49,132,128)] pl-4"
-                >
-                  <h3 className="project-title text-sm">{project.title}</h3>
-                  <div className="flex space-x-4 mt-2">
-                    <a
-                      href={project.doi}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm cursor-pointer"
-                    >
-                      DOI
-                    </a>
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm cursor-pointer"
-                    >
-                      GitHub
-                    </a>
-                  </div>
-                </div>
-              )
-            ) || []}
-          </div>
-
-          <p className="hero-description">
-            {PORTFOLIO_DATA.researchFocus?.additionalInfo || ""}
-          </p>
-        </div>
-      </section>
-
-      {/* Current Teaching Section */}
-      <section id="teaching" className="section-spacing relative z-20">
-        <div className="portfolio-container">
-          <h2 className="section-title">
-            {PORTFOLIO_DATA.currentTeaching?.title || "CURRENT TEACHING"}
-          </h2>
-
-          <div className="space-y-6">
-            <div>
-              <h3 className="expertise-category">
-                {PORTFOLIO_DATA.currentTeaching?.semesters?.summer?.title ||
-                  "Summer:"}
-              </h3>
-              <ul className="space-y-2">
-                {PORTFOLIO_DATA.currentTeaching?.semesters?.summer?.courses?.map(
-                  (course, index) => (
-                    <li key={index} className="expertise-skills">
-                      – {course}
-                    </li>
-                  )
-                ) || []}
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="expertise-category">
-                {PORTFOLIO_DATA.currentTeaching?.semesters?.winter?.title ||
-                  "Winter:"}
-              </h3>
-              <ul className="space-y-2">
-                {PORTFOLIO_DATA.currentTeaching?.semesters?.winter?.courses?.map(
-                  (course, index) => (
-                    <li key={index} className="expertise-skills">
-                      – {course}
-                    </li>
-                  )
-                ) || []}
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="expertise-category">
-                {PORTFOLIO_DATA.currentTeaching?.semesters?.everySemester
-                  ?.title || "Every Semester:"}
-              </h3>
-              <ul className="space-y-2">
-                {PORTFOLIO_DATA.currentTeaching?.semesters?.everySemester?.courses?.map(
-                  (course, index) => (
-                    <li key={index} className="expertise-skills">
-                      –{" "}
-                      {typeof course === "string" ? (
-                        course
-                      ) : (
-                        <a
-                          href={course.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="cursor-pointer"
-                        >
-                          {course.text}
-                        </a>
-                      )}
-                    </li>
-                  )
-                ) || []}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Section Divider */}
+      <div className="section-divider relative z-20">
+        <div className="section-divider-line"></div>
+      </div>
 
       {/* Publications Section */}
       <section id="publications" className="section-spacing relative z-20">
         <div className="portfolio-container">
-          <h2 className="section-title">
-            {PORTFOLIO_DATA.publications?.title || "PUBLICATIONS"}
+          <h2 className="work-focus-title">
+            {PORTFOLIO_DATA.publications?.title || "Publications"}
           </h2>
-          <p className="hero-description mb-8">
-            {PORTFOLIO_DATA.publications?.description || ""}
-          </p>
 
           {loading ? (
             <div className="text-center py-8">
-              <p className="hero-description">Loading publications...</p>
+              <p className="work-focus-text">Loading publications...</p>
             </div>
           ) : error ? (
             <div className="text-center py-8">
-              <p className="text-red-400 mb-4">Error loading publications</p>
-              <p className="text-gray-400 text-sm">{error}</p>
+              <p
+                className="work-focus-text"
+                style={{ color: "rgb(239, 68, 68)" }}
+              >
+                Error loading publications
+              </p>
+              <p
+                className="work-focus-text"
+                style={{ fontSize: "16px", color: "#9ca3af" }}
+              >
+                {error}
+              </p>
             </div>
           ) : (
             <>
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {publications.map((publication, index) => (
-                  <div key={index}>
-                    <div className="flex justify-between items-start">
+                  <div key={index} className="publication-item">
+                    <div className="flex justify-between items-start gap-6">
                       <div className="flex-1">
-                        <h3 className="project-title">{publication.title}</h3>
-                        <p className="employment-role mb-2">
+                        <h3 className="publication-title">
+                          {publication.title}
+                        </h3>
+                        <p className="publication-authors mb-2">
                           {publication.authors}
                         </p>
-                        <div className="flex items-center space-x-4 mt-2">
-                          <span className="text-sm text-gray-400">
+                        <div className="flex items-center flex-wrap gap-4 mt-2">
+                          <span className="publication-meta">
                             {publication.venue}
                           </span>
-                          <span className="text-sm text-gray-400">
+                          <span className="publication-meta">
                             Citations: {publication.citations}
                           </span>
                           {publication.url && (
@@ -493,18 +495,18 @@ export default function Home() {
                               href={publication.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-sm cursor-pointer"
+                              className="publication-link"
                             >
+                              <ExternalLink size={16} className="inline mr-1" />
                               View Paper
                             </a>
                           )}
                         </div>
                       </div>
-                      <span className="project-year">{publication.year}</span>
+                      <span className="publication-year">
+                        {publication.year}
+                      </span>
                     </div>
-                    {index < publications.length - 1 && (
-                      <div className="divider"></div>
-                    )}
                   </div>
                 ))}
               </div>
@@ -552,41 +554,49 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Section Divider */}
+      <div className="section-divider relative z-20">
+        <div className="section-divider-line"></div>
+      </div>
+
       {/* Awards Section */}
       <section id="awards" className="section-spacing relative z-20">
         <div className="portfolio-container">
-          <h2 className="section-title">
-            {PORTFOLIO_DATA.awards?.title || "AWARDS"}
+          <h2 className="work-focus-title">
+            {PORTFOLIO_DATA.awards?.title || "Awards"}
           </h2>
 
           <div className="space-y-4">
             {PORTFOLIO_DATA.awards?.items?.map((award, index) => (
-              <div
-                key={index}
-                className="border-l-2 border-[rgb(49,132,128)] pl-4"
-              >
-                <p className="expertise-skills">– {award}</p>
+              <div key={index} className="award-item">
+                <p className="work-focus-text">{award}</p>
               </div>
             )) || []}
           </div>
         </div>
       </section>
 
+      {/* Section Divider */}
+      <div className="section-divider relative z-20">
+        <div className="section-divider-line"></div>
+      </div>
+
       {/* Academic Functions & Activities Section */}
-      <section id="academic" className="section-spacing relative z-20">
+      <section
+        id="academic"
+        className="section-spacing relative z-20"
+        style={{ paddingBottom: "50px" }}
+      >
         <div className="portfolio-container">
-          <h2 className="section-title">
+          <h2 className="work-focus-title">
             {PORTFOLIO_DATA.academicFunctions?.title ||
-              "ACADEMIC FUNCTIONS & ACTIVITIES"}
+              "Academic Functions & Activities"}
           </h2>
 
           <div className="space-y-4">
             {PORTFOLIO_DATA.academicFunctions?.items?.map((activity, index) => (
-              <div
-                key={index}
-                className="border-l-2 border-[rgb(49,132,128)] pl-4"
-              >
-                <p className="expertise-skills">– {activity}</p>
+              <div key={index} className="award-item">
+                <p className="work-focus-text">{activity}</p>
               </div>
             )) || []}
           </div>
@@ -594,63 +604,76 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="section-spacing relative z-20">
+      <section
+        id="contact"
+        className="section-spacing relative z-20 pb-24 contact-section overflow-hidden"
+      >
         <div className="portfolio-container">
-          <h2 className="section-title">
-            {PORTFOLIO_DATA.contact?.title || "CONTACT"}
+          <h2 className="work-focus-title">
+            {PORTFOLIO_DATA.contact?.title || "Contact"}
           </h2>
-          <p className="hero-description mb-8">
-            {PORTFOLIO_DATA.contact?.description || ""}
-          </p>
 
-          <div className="grid grid-cols-2 gap-12">
-            <div>
-              <h3 className="contact-label">GROUP</h3>
-              <p className="contact-info">
-                {PORTFOLIO_DATA.contact?.office?.group || ""}
-              </p>
+          <div className="grid grid-cols-2 gap-16 mt-8">
+            <div className="space-y-6">
+              <div>
+                <h3 className="contact-section-label">Group</h3>
+                <p className="contact-section-info">
+                  {PORTFOLIO_DATA.contact?.office?.group || ""}
+                </p>
+              </div>
 
-              <h3 className="contact-label mt-6">OFFICE HOURS</h3>
-              <p className="contact-info">
-                {PORTFOLIO_DATA.contact?.office?.officeHours || ""}
-              </p>
+              <div>
+                <h3 className="contact-section-label">Office Hours</h3>
+                <p className="contact-section-info">
+                  {PORTFOLIO_DATA.contact?.office?.officeHours || ""}
+                </p>
+              </div>
 
-              <h3 className="contact-label mt-6">ROOM</h3>
-              <p className="contact-info">
-                {PORTFOLIO_DATA.contact?.office?.room || ""}
-              </p>
+              <div>
+                <h3 className="contact-section-label">Room</h3>
+                <p className="contact-section-info">
+                  {PORTFOLIO_DATA.contact?.office?.room || ""}
+                </p>
+              </div>
 
-              <h3 className="contact-label mt-6">PHONE</h3>
-              <p className="contact-info">
-                {PORTFOLIO_DATA.contact?.office?.phone || ""}
-              </p>
+              <div>
+                <h3 className="contact-section-label">Phone</h3>
+                <p className="contact-section-info">
+                  {PORTFOLIO_DATA.contact?.office?.phone || ""}
+                </p>
+              </div>
 
-              <h3 className="contact-label mt-6">EMAIL</h3>
-              <a
-                href={`mailto:${PORTFOLIO_DATA.contact?.office?.email || ""}`}
-                className="contact-info"
-              >
-                {PORTFOLIO_DATA.contact?.office?.email || ""}
-              </a>
+              <div>
+                <h3 className="contact-section-label">Email</h3>
+                <a
+                  href={`mailto:${PORTFOLIO_DATA.contact?.office?.email || ""}`}
+                  className="contact-section-info"
+                >
+                  {PORTFOLIO_DATA.contact?.office?.email || ""}
+                </a>
+              </div>
             </div>
-            <div>
-              <h3 className="contact-label">INSTITUTION</h3>
-              <p className="contact-info">
-                {PORTFOLIO_DATA.contact?.office?.institution || ""}
-              </p>
-              <p className="contact-info">
-                {PORTFOLIO_DATA.contact?.office?.faculty || ""}
-              </p>
-              <p className="contact-info">
-                {PORTFOLIO_DATA.contact?.office?.institute || ""}
-              </p>
-              <p className="contact-info mt-4">
-                {PORTFOLIO_DATA.contact?.office?.address || ""}
-              </p>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="contact-section-label">Institution</h3>
+                <p className="contact-section-info">
+                  {PORTFOLIO_DATA.contact?.office?.institution || ""}
+                </p>
+                <p className="contact-section-info">
+                  {PORTFOLIO_DATA.contact?.office?.faculty || ""}
+                </p>
+                <p className="contact-section-info">
+                  {PORTFOLIO_DATA.contact?.office?.institute || ""}
+                </p>
+                <p className="contact-section-info mt-4">
+                  {PORTFOLIO_DATA.contact?.office?.address || ""}
+                </p>
+              </div>
 
               {/* Social Media Icons */}
-              <div className="mt-8">
-                <h3 className="contact-label mb-4">CONNECT</h3>
+              <div>
+                <h3 className="contact-section-label mb-4">Connect</h3>
                 <div className="flex space-x-4">
                   {PORTFOLIO_DATA.contact?.social?.map((social, index) => (
                     <a
@@ -670,26 +693,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bottom Wave SVG */}
-      <div className="absolute bottom-0 left-0 w-full h-64 z-5 rotate-180">
-        <svg
-          className="w-full h-full"
-          viewBox="0 0 1200 320"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-            fill="rgba(15, 20, 25, 0.4)"
-          />
-        </svg>
-      </div>
-
       {/* Fixed Back to Top Button */}
       <Button
         variant="outline"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`fixed bottom-6 right-6 z-50 p-3 border-gray-600 text-gray-400 hover:text-white hover:border-[rgb(49,132,128)] hover:bg-[rgb(49,132,128)]/20 bg-[#13181d]/90 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 ${
+        className={`fixed bottom-6 right-6 z-50 p-3 border-gray-600 text-gray-400 hover:text-white hover:border-[rgb(49,132,128)] hover:bg-[rgb(49,132,128)]/20 bg-black/90 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 ${
           showTopButton
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-4 pointer-events-none"
