@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PORTFOLIO_DATA } from "@/lib/constants";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, memo } from "react";
 import { fetchPublications, Publication } from "@/lib/scholarApi";
 import {
   Pagination,
@@ -52,6 +52,79 @@ const getSocialIcon = (iconName: string) => {
   }
 };
 
+// Text parser component to handle bold and italic without dangerouslySetInnerHTML
+const ParsedText = memo(({ text }: { text: string }) => {
+  const parts = text.split(/(<strong>.*?<\/strong>|<em>.*?<\/em>)/g);
+
+  return (
+    <>
+      {parts.map((part, index) => {
+        if (part.startsWith("<strong>")) {
+          const content = part.replace(/<\/?strong>/g, "");
+          return <strong key={index}>{content}</strong>;
+        } else if (part.startsWith("<em>")) {
+          const content = part.replace(/<\/?em>/g, "");
+          return <em key={index}>{content}</em>;
+        }
+        return <span key={index}>{part}</span>;
+      })}
+    </>
+  );
+});
+
+// Typing animation component - isolated to prevent re-renders
+const TypingAnimation = memo(({ text }: { text: string }) => {
+  const [typedText, setTypedText] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    let currentIndex = 0;
+    let isDeleting = false;
+    let timeoutId: NodeJS.Timeout;
+
+    const type = () => {
+      if (!isDeleting) {
+        if (currentIndex <= text.length) {
+          setTypedText(text.substring(0, currentIndex));
+          currentIndex++;
+          timeoutId = setTimeout(type, 100);
+        } else {
+          timeoutId = setTimeout(() => {
+            isDeleting = true;
+            type();
+          }, 2000);
+        }
+      } else {
+        if (currentIndex > 0) {
+          currentIndex--;
+          setTypedText(text.substring(0, currentIndex));
+          timeoutId = setTimeout(type, 50);
+        } else {
+          isDeleting = false;
+          timeoutId = setTimeout(type, 500);
+        }
+      }
+    };
+
+    type();
+    return () => clearTimeout(timeoutId);
+  }, [text]);
+
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
+    return () => clearInterval(cursorInterval);
+  }, []);
+
+  return (
+    <>
+      {typedText}
+      <span className={showCursor ? "opacity-100" : "opacity-0"}>|</span>
+    </>
+  );
+});
+
 export default function Home() {
   const [publications, setPublications] = useState<Publication[]>([]);
   const [start, setStart] = useState(0);
@@ -64,61 +137,10 @@ export default function Home() {
   const [showTopButton, setShowTopButton] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [showImage, setShowImage] = useState(true);
-  const [typedText, setTypedText] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
   const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  // Typing animation effect
-  useEffect(() => {
-    const fullText = PORTFOLIO_DATA.hero.title;
-    let currentIndex = 0;
-    let isDeleting = false;
-    let timeoutId: NodeJS.Timeout;
-
-    const type = () => {
-      if (!isDeleting) {
-        // Typing
-        if (currentIndex <= fullText.length) {
-          setTypedText(fullText.substring(0, currentIndex));
-          currentIndex++;
-          timeoutId = setTimeout(type, 100); // Typing speed
-        } else {
-          // Pause at the end for 2 seconds
-          timeoutId = setTimeout(() => {
-            isDeleting = true;
-            type();
-          }, 2000);
-        }
-      } else {
-        // Deleting
-        if (currentIndex > 0) {
-          currentIndex--;
-          setTypedText(fullText.substring(0, currentIndex));
-          timeoutId = setTimeout(type, 50); // Deleting speed (faster)
-        } else {
-          // Start typing again
-          isDeleting = false;
-          timeoutId = setTimeout(type, 500); // Pause before retyping
-        }
-      }
-    };
-
-    type();
-
-    return () => clearTimeout(timeoutId);
-  }, []);
-
-  // Cursor blink effect
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 500);
-
-    return () => clearInterval(cursorInterval);
   }, []);
 
   useEffect(() => {
@@ -259,8 +281,7 @@ export default function Home() {
 
           {/* Name with typing animation */}
           <h1 className="hero-name-large mb-12">
-            {typedText}
-            <span className={showCursor ? "opacity-100" : "opacity-0"}>|</span>
+            <TypingAnimation text={PORTFOLIO_DATA.hero.title} />
           </h1>
 
           {/* Social Icons */}
@@ -336,11 +357,9 @@ export default function Home() {
           </h2>
           <div className="space-y-8">
             {PORTFOLIO_DATA.workFocus?.paragraphs.map((paragraph, index) => (
-              <p
-                key={index}
-                className="work-focus-text"
-                dangerouslySetInnerHTML={{ __html: paragraph.text }}
-              />
+              <p key={index} className="work-focus-text">
+                <ParsedText text={paragraph.text} />
+              </p>
             ))}
           </div>
         </div>
@@ -359,11 +378,9 @@ export default function Home() {
           </h2>
           <div className="space-y-8">
             {PORTFOLIO_DATA.recognitions?.paragraphs.map((paragraph, index) => (
-              <p
-                key={index}
-                className="work-focus-text"
-                dangerouslySetInnerHTML={{ __html: paragraph.text }}
-              />
+              <p key={index} className="work-focus-text">
+                <ParsedText text={paragraph.text} />
+              </p>
             ))}
           </div>
         </div>
