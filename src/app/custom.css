@@ -550,3 +550,16 @@ a:hover {
   position: relative;
   z-index: 1;
 }
+
+/* Beyond the Research Section */
+.beyond-research-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+/* Beyond the Research Links */
+#beyond-research a {
+  text-decoration: underline;
+}

@@ -1,3 +1,5 @@
+import { text } from "stream/consumers";
+
 export const PORTFOLIO_DATA = {
   // Personal Information
   personal: {
@@ -243,6 +245,25 @@ export const PORTFOLIO_DATA = {
     title: "Publications",
   },
 
+  // Beyond the Research Section
+  beyondResearch: {
+    title: "Beyond the Research",
+    sections: [
+      {
+        title: "Community Engagement:",
+        text: 'Co-organizer of the <strong>Biosignals</strong> Connect ( "<strong>BioCon</strong>" ) conference series, CHI conference editor, active contributor to the <strong>OpenBCI</strong> open-source community, and advocate for <strong>transparent, privacy-preserving</strong> approaches to everyday <strong>neurotechnology</strong>.',
+      },
+      {
+        title: "Community & Collaboration",
+        text: "Research advances through community. I'm grateful to work alongside talented doctoral researchers, master's students, and collaborators who bring fresh energy and perspectives to our projects.",
+      },
+      {
+        title: "Networks & Partnerships:",
+        text: 'Our work connects researchers across <a href="https://im.win.kit.edu/1175.php" target="_blank" rel="noopener noreferrer">KIT</a>, the <a href="https://kd2school.info/" target="_blank" rel="noopener noreferrer">KD2School Research Training Group</a>, and international partners at University of Nottingham, Politecnico di Milano, Nara Institute of Science and Technology, and institutions in Sweden and the USA. Industry collaborations with Mercedes-Benz, ABB, Bosch, and sensor manufacturers help bridge academic innovation with real-world impact.',
+      },
+    ],
+  },
+
   // Awards Section
   awards: {
     title: "Awards",
@@ -307,6 +328,7 @@ export const PORTFOLIO_DATA = {
     { href: "#recognitions", label: "Recognitions" },
     { href: "#featured-work", label: "Featured Work" },
     { href: "#publications", label: "Publications" },
+    { href: "#beyond-research", label: "Beyond the Research" },
     { href: "#awards", label: "Awards" },
     { href: "#academic", label: "Academic Functions" },
     { href: "#contact", label: "Contact" },

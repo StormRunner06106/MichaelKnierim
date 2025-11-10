@@ -54,7 +54,9 @@ const getSocialIcon = (iconName: string) => {
 
 // Text parser component to handle bold and italic without dangerouslySetInnerHTML
 const ParsedText = memo(({ text }: { text: string }) => {
-  const parts = text.split(/(<strong>.*?<\/strong>|<em>.*?<\/em>)/g);
+  const parts = text.split(
+    /(<strong>.*?<\/strong>|<em>.*?<\/em>|<a[^>]*>.*?<\/a>)/g
+  );
 
   return (
     <>
@@ -65,6 +67,21 @@ const ParsedText = memo(({ text }: { text: string }) => {
         } else if (part.startsWith("<em>")) {
           const content = part.replace(/<\/?em>/g, "");
           return <em key={index}>{content}</em>;
+        } else if (part.startsWith("<a")) {
+          const hrefMatch = part.match(/href=['"]([^'"]*)['"]/);
+          const textMatch = part.match(/>([^<]*)</);
+          const href = hrefMatch ? hrefMatch[1] : "#";
+          const linkText = textMatch ? textMatch[1] : "";
+          return (
+            <a
+              key={index}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {linkText}
+            </a>
+          );
         }
         return <span key={index}>{part}</span>;
       })}
@@ -568,6 +585,31 @@ export default function Home() {
               )}
             </>
           )}
+        </div>
+      </section>
+
+      {/* Section Divider */}
+      <div className="section-divider relative z-20">
+        <div className="section-divider-line"></div>
+      </div>
+
+      {/* Beyond the Research Section */}
+      <section id="beyond-research" className="section-spacing relative z-20">
+        <div className="portfolio-container">
+          <h2 className="work-focus-title">
+            {PORTFOLIO_DATA.beyondResearch?.title || "Beyond the Research"}
+          </h2>
+
+          <div className="space-y-8">
+            {PORTFOLIO_DATA.beyondResearch?.sections.map((section, index) => (
+              <div key={index}>
+                <h3 className="beyond-research-subtitle">{section.title}</h3>
+                <p className="work-focus-text">
+                  <ParsedText text={section.text} />
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
