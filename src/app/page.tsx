@@ -3,13 +3,15 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PORTFOLIO_DATA } from "@/lib/constants";
-import { useState, useEffect, useMemo, memo } from "react";
+import { useState, useEffect, memo } from "react";
 import { fetchPublications, Publication } from "@/lib/scholarApi";
+import { ImageCarousel } from "@/components/ImageCarousel";
+import { ImageThumbnail } from "@/components/ImageThumbnail";
+import { ImageGrid } from "@/components/ImageGrid";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
@@ -55,7 +57,7 @@ const getSocialIcon = (iconName: string) => {
 // Text parser component to handle bold and italic without dangerouslySetInnerHTML
 const ParsedText = memo(({ text }: { text: string }) => {
   const parts = text.split(
-    /(<strong>.*?<\/strong>|<em>.*?<\/em>|<a[^>]*>.*?<\/a>)/g
+    /(<strong>.*?<\/strong>|<em>.*?<\/em>|<a[^>]*>.*?<\/a>|<br\s*\/?>)/g
   );
 
   return (
@@ -82,6 +84,8 @@ const ParsedText = memo(({ text }: { text: string }) => {
               {linkText}
             </a>
           );
+        } else if (part.match(/<br\s*\/?>/)) {
+          return <br key={index} />;
         }
         return <span key={index}>{part}</span>;
       })}
@@ -155,6 +159,15 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [showImage, setShowImage] = useState(true);
   const [expandedCategories, setExpandedCategories] = useState<number[]>([]);
+  const [carouselOpen, setCarouselOpen] = useState(false);
+  const [carouselImages, setCarouselImages] = useState<string[]>([]);
+  const [carouselInitialIndex, setCarouselInitialIndex] = useState(0);
+
+  const openCarousel = (images: string[], initialIndex: number = 0) => {
+    setCarouselImages(images);
+    setCarouselInitialIndex(initialIndex);
+    setCarouselOpen(true);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -225,11 +238,15 @@ export default function Home() {
           <div className="flex justify-between items-center">
             <Link
               href="/"
-              className={`text-white font-bold transition-all duration-300 cursor-pointer ${
-                isScrolled ? "text-lg" : "text-xl"
-              }`}
+              className="transition-all duration-300 cursor-pointer"
             >
-              {PORTFOLIO_DATA.personal.name}
+              <img
+                src="/header-mark.png"
+                alt={PORTFOLIO_DATA.personal.name}
+                className={`transition-all duration-300 ${
+                  isScrolled ? "h-8" : "h-10"
+                }`}
+              />
             </Link>
             <div className="flex space-x-6 ml-12">
               {PORTFOLIO_DATA.navigation.map((item) => (
@@ -265,7 +282,10 @@ export default function Home() {
           <div className="absolute top-0 left-0 w-full h-full bg-black/90"></div>
         </div>
 
-        <div className="portfolio-container text-center relative z-10">
+        <div
+          className="portfolio-container text-center relative z-10"
+          style={{ marginTop: "-50px" }}
+        >
           {/* Avatar */}
           <div className="flex justify-center mb-8">
             <div className="hero-avatar bg-gray-600 overflow-hidden flex items-center justify-center relative">
@@ -296,10 +316,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Name with typing animation */}
-          <h1 className="hero-name-large mb-12">
-            <TypingAnimation text={PORTFOLIO_DATA.hero.title} />
-          </h1>
+          {/* Name */}
+          <h1 className="hero-name-large mb-4">{PORTFOLIO_DATA.hero.title}</h1>
 
           {/* Social Icons */}
           <div className="flex justify-center space-x-6 mb-12">
@@ -358,11 +376,55 @@ export default function Home() {
           </div>
 
           {/* Introduction */}
-          <div>
+          <div className="mb-12">
             <p className="core-work-bar-intro max-w-4xl mx-auto">
-              {PORTFOLIO_DATA.hero.introduction}
+              <ParsedText text={PORTFOLIO_DATA.hero.introduction} />
             </p>
           </div>
+
+          {/* Latest Publications */}
+          {!loading && !error && publications.length > 0 && (
+            <div className="max-w-4xl mx-auto">
+              <div className="flex justify-center mb-6">
+                <span className="inline-block px-6 py-2 bg-[rgb(49,132,128)] text-white text-base font-semibold rounded-full">
+                  Latest Publications
+                </span>
+              </div>
+              <div className="space-y-4">
+                {publications.slice(0, 2).map((publication, index) => (
+                  <div
+                    key={index}
+                    className="text-left bg-black/30 p-4 rounded-lg"
+                  >
+                    <h4 className="text-lg font-semibold text-[rgb(49,132,128)] mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
+                      {publication.title}
+                    </h4>
+                    <p className="text-sm text-gray-300 mb-2">
+                      {publication.authors}
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-400">
+                      <span>{publication.venue}</span>
+                      <span>•</span>
+                      <span>{publication.year}</span>
+                      {publication.url && (
+                        <>
+                          <span>•</span>
+                          <a
+                            href={publication.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[rgb(49,132,128)] hover:underline"
+                          >
+                            View Paper
+                          </a>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -431,9 +493,27 @@ export default function Home() {
                     <h3 className="featured-work-block-title">
                       {category.title}
                     </h3>
+
                     <p className="featured-work-block-description">
-                      {category.description}
+                      {!expandedCategories.includes(index)
+                        ? category.description.substring(0, 200) + "..."
+                        : category.description}
                     </p>
+
+                    {/* Image Thumbnail - Only show when collapsed */}
+                    {!expandedCategories.includes(index) &&
+                      category.images &&
+                      category.images.length > 0 && (
+                        <div className="mt-6">
+                          <ImageThumbnail
+                            images={category.images}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openCarousel(category.images, 0);
+                            }}
+                          />
+                        </div>
+                      )}
                   </div>
                   <ChevronDown
                     size={24}
@@ -445,6 +525,34 @@ export default function Home() {
 
                 {expandedCategories.includes(index) && (
                   <div className="featured-work-list">
+                    {/* Video Link */}
+                    {category.videoLink && (
+                      <div className="mb-6">
+                        <a
+                          href={category.videoLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-[rgb(49,132,128)] hover:underline"
+                        >
+                          <ExternalLink size={16} />
+                          Watch Video
+                        </a>
+                      </div>
+                    )}
+
+                    {/* Image Grid */}
+                    {category.images && category.images.length > 0 && (
+                      <div className="mb-6">
+                        <ImageGrid
+                          images={category.images}
+                          onImageClick={(imageIndex) =>
+                            openCarousel(category.images, imageIndex)
+                          }
+                        />
+                      </div>
+                    )}
+
+                    {/* Selected Works */}
                     {category.selectedWorks.map((work, workIndex) => (
                       <div key={workIndex} className="featured-work-item">
                         <div className="flex-1">
@@ -481,9 +589,19 @@ export default function Home() {
       {/* Publications Section */}
       <section id="publications" className="section-spacing relative z-20">
         <div className="portfolio-container">
-          <h2 className="work-focus-title">
-            {PORTFOLIO_DATA.publications?.title || "Publications"}
-          </h2>
+          <div className="flex justify-between items-center">
+            <h2 className="work-focus-title mb-0">
+              {PORTFOLIO_DATA.publications?.title || "Publications"}
+            </h2>
+            <a
+              href={`https://scholar.google.de/citations?user=${PORTFOLIO_DATA.personal.scholarId}&hl=de`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-6 py-3 bg-gray-900 text-gray-300 text-base font-normal rounded-md hover:bg-[rgb(49,132,128)] hover:text-white transition-all duration-300"
+            >
+              As listed on Google Scholar
+            </a>
+          </div>
 
           {loading ? (
             <div className="text-center py-8">
@@ -594,7 +712,10 @@ export default function Home() {
       </div>
 
       {/* Beyond the Research Section */}
-      <section id="beyond-research" className="section-spacing relative z-20">
+      <section
+        id="beyond-research"
+        className="section-spacing relative z-20 mb-16"
+      >
         <div className="portfolio-container">
           <h2 className="work-focus-title">
             {PORTFOLIO_DATA.beyondResearch?.title || "Beyond the Research"}
@@ -607,147 +728,36 @@ export default function Home() {
                 <p className="work-focus-text">
                   <ParsedText text={section.text} />
                 </p>
+
+                {/* Video Embed */}
+                {section.videoLink && (
+                  <div className="mt-6">
+                    <iframe
+                      width="800"
+                      height="450"
+                      src={section.videoLink.replace("watch?v=", "embed/")}
+                      title="YouTube video"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="rounded-lg m-auto"
+                    ></iframe>
+                  </div>
+                )}
+
+                {/* Images Grid */}
+                {section.images && section.images.length > 0 && (
+                  <div className="mt-6">
+                    <ImageGrid
+                      images={section.images}
+                      onImageClick={(imageIndex) =>
+                        openCarousel(section.images, imageIndex)
+                      }
+                    />
+                  </div>
+                )}
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Section Divider */}
-      <div className="section-divider relative z-20">
-        <div className="section-divider-line"></div>
-      </div>
-
-      {/* Awards Section */}
-      <section id="awards" className="section-spacing relative z-20">
-        <div className="portfolio-container">
-          <h2 className="work-focus-title">
-            {PORTFOLIO_DATA.awards?.title || "Awards"}
-          </h2>
-
-          <div className="space-y-4">
-            {PORTFOLIO_DATA.awards?.items?.map((award, index) => (
-              <div key={index} className="award-item">
-                <p className="work-focus-text">{award}</p>
-              </div>
-            )) || []}
-          </div>
-        </div>
-      </section>
-
-      {/* Section Divider */}
-      <div className="section-divider relative z-20">
-        <div className="section-divider-line"></div>
-      </div>
-
-      {/* Academic Functions & Activities Section */}
-      <section
-        id="academic"
-        className="section-spacing relative z-20"
-        style={{ paddingBottom: "50px" }}
-      >
-        <div className="portfolio-container">
-          <h2 className="work-focus-title">
-            {PORTFOLIO_DATA.academicFunctions?.title ||
-              "Academic Functions & Activities"}
-          </h2>
-
-          <div className="space-y-4">
-            {PORTFOLIO_DATA.academicFunctions?.items?.map((activity, index) => (
-              <div key={index} className="award-item">
-                <p className="work-focus-text">{activity}</p>
-              </div>
-            )) || []}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section
-        id="contact"
-        className="section-spacing relative z-20 pb-24 contact-section overflow-hidden"
-      >
-        <div className="portfolio-container">
-          <h2 className="work-focus-title">
-            {PORTFOLIO_DATA.contact?.title || "Contact"}
-          </h2>
-
-          <div className="grid grid-cols-2 gap-16 mt-8">
-            <div className="space-y-6">
-              <div>
-                <h3 className="contact-section-label">Group</h3>
-                <p className="contact-section-info">
-                  {PORTFOLIO_DATA.contact?.office?.group || ""}
-                </p>
-              </div>
-
-              <div>
-                <h3 className="contact-section-label">Office Hours</h3>
-                <p className="contact-section-info">
-                  {PORTFOLIO_DATA.contact?.office?.officeHours || ""}
-                </p>
-              </div>
-
-              <div>
-                <h3 className="contact-section-label">Room</h3>
-                <p className="contact-section-info">
-                  {PORTFOLIO_DATA.contact?.office?.room || ""}
-                </p>
-              </div>
-
-              <div>
-                <h3 className="contact-section-label">Phone</h3>
-                <p className="contact-section-info">
-                  {PORTFOLIO_DATA.contact?.office?.phone || ""}
-                </p>
-              </div>
-
-              <div>
-                <h3 className="contact-section-label">Email</h3>
-                <a
-                  href={`mailto:${PORTFOLIO_DATA.contact?.office?.email || ""}`}
-                  className="contact-section-info"
-                >
-                  {PORTFOLIO_DATA.contact?.office?.email || ""}
-                </a>
-              </div>
-            </div>
-
-            <div className="space-y-6">
-              <div>
-                <h3 className="contact-section-label">Institution</h3>
-                <p className="contact-section-info">
-                  {PORTFOLIO_DATA.contact?.office?.institution || ""}
-                </p>
-                <p className="contact-section-info">
-                  {PORTFOLIO_DATA.contact?.office?.faculty || ""}
-                </p>
-                <p className="contact-section-info">
-                  {PORTFOLIO_DATA.contact?.office?.institute || ""}
-                </p>
-                <p className="contact-section-info mt-4">
-                  {PORTFOLIO_DATA.contact?.office?.address || ""}
-                </p>
-              </div>
-
-              {/* Social Media Icons */}
-              <div>
-                <h3 className="contact-section-label mb-4">Connect</h3>
-                <div className="flex space-x-4">
-                  {PORTFOLIO_DATA.contact?.social?.map((social, index) => (
-                    <a
-                      key={index}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-full border border-gray-600 hover:border-[rgb(49,132,128)] hover:bg-[rgb(49,132,128)]/20 transition-all duration-300"
-                    >
-                      {getSocialIcon(social.icon)}
-                    </a>
-                  )) || []}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -764,6 +774,14 @@ export default function Home() {
       >
         <ArrowUp size={20} />
       </Button>
+
+      {/* Image Carousel Modal */}
+      <ImageCarousel
+        images={carouselImages}
+        isOpen={carouselOpen}
+        onClose={() => setCarouselOpen(false)}
+        initialIndex={carouselInitialIndex}
+      />
     </div>
   );
 }
