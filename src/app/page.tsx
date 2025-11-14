@@ -162,10 +162,22 @@ export default function Home() {
   const [carouselOpen, setCarouselOpen] = useState(false);
   const [carouselImages, setCarouselImages] = useState<string[]>([]);
   const [carouselInitialIndex, setCarouselInitialIndex] = useState(0);
+  const [carouselKey, setCarouselKey] = useState(0);
+  const [previousImagesGroup, setPreviousImagesGroup] = useState<string[]>([]);
 
   const openCarousel = (images: string[], initialIndex: number = 0) => {
+    // Check if we're opening a different image group
+    const isDifferentGroup =
+      JSON.stringify(previousImagesGroup) !== JSON.stringify(images);
+
+    console.log("DIFF", isDifferentGroup);
+
     setCarouselImages(images);
-    setCarouselInitialIndex(initialIndex);
+    setPreviousImagesGroup(images);
+
+    // If it's a different group, always start at 0, otherwise use the provided initialIndex
+    setCarouselInitialIndex(isDifferentGroup ? 0 : initialIndex);
+    setCarouselKey((prev) => prev + 1); // Force remount
     setCarouselOpen(true);
   };
 
@@ -217,8 +229,6 @@ export default function Home() {
       setIsScrolled(scrollTop > 50);
       const shouldShow = scrollTop > 200;
       setShowTopButton(shouldShow);
-      // Debug log - remove this later
-      console.log("Scroll position:", scrollTop, "Show button:", shouldShow);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -229,7 +239,7 @@ export default function Home() {
       {/* Navigation */}
       <nav
         className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${
-          isScrolled
+          mounted && isScrolled
             ? "bg-black/95 backdrop-blur-md border-b border-gray-700 shadow-lg py-2"
             : "bg-black/80 backdrop-blur-sm border-b border-transparent py-4"
         }`}
@@ -244,8 +254,9 @@ export default function Home() {
                 src="/header-mark.png"
                 alt={PORTFOLIO_DATA.personal.name}
                 className={`transition-all duration-300 ${
-                  isScrolled ? "h-8" : "h-10"
+                  mounted && isScrolled ? "h-8" : "h-10"
                 }`}
+                suppressHydrationWarning
               />
             </Link>
             <div className="flex space-x-6 ml-12">
@@ -254,7 +265,7 @@ export default function Home() {
                   key={item.href}
                   href={item.href}
                   className={`nav-link transition-all duration-300 cursor-pointer ${
-                    isScrolled ? "text-xs" : "text-xs"
+                    mounted && isScrolled ? "text-xs" : "text-xs"
                   }`}
                 >
                   {item.label}
@@ -767,7 +778,7 @@ export default function Home() {
         variant="outline"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className={`fixed bottom-6 right-6 z-50 p-3 border-gray-600 text-gray-400 hover:text-white hover:border-[rgb(49,132,128)] hover:bg-[rgb(49,132,128)]/20 bg-black/90 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 ${
-          showTopButton
+          mounted && showTopButton
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-4 pointer-events-none"
         }`}
@@ -777,6 +788,7 @@ export default function Home() {
 
       {/* Image Carousel Modal */}
       <ImageCarousel
+        key={carouselKey}
         images={carouselImages}
         isOpen={carouselOpen}
         onClose={() => setCarouselOpen(false)}

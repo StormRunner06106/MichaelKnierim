@@ -19,8 +19,10 @@ export function ImageCarousel({
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
   useEffect(() => {
-    setCurrentIndex(initialIndex);
-  }, [initialIndex]);
+    if (isOpen) {
+      setCurrentIndex(initialIndex);
+    }
+  }, [initialIndex, isOpen]);
 
   // Disable body scroll when carousel is open
   useEffect(() => {
