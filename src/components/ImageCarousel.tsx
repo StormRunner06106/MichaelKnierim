@@ -70,7 +70,7 @@ export function ImageCarousel({
     >
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 p-2 text-white hover:text-[rgb(49,132,128)] transition-colors z-10 cursor-pointer"
+        className="absolute top-4 right-4 p-2 text-white hover:text-[rgb(var(--secondary-color))] transition-colors z-10 cursor-pointer"
       >
         <X size={32} />
       </button>
@@ -80,7 +80,7 @@ export function ImageCarousel({
           e.stopPropagation();
           handlePrev();
         }}
-        className="absolute left-4 p-2 text-white hover:text-[rgb(49,132,128)] transition-colors z-10 cursor-pointer"
+        className="absolute left-4 p-2 text-white hover:text-[rgb(var(--secondary-color))] transition-colors z-10 cursor-pointer"
         disabled={images.length <= 1}
       >
         <ChevronLeft size={48} />
@@ -91,7 +91,7 @@ export function ImageCarousel({
           e.stopPropagation();
           handleNext();
         }}
-        className="absolute right-4 p-2 text-white hover:text-[rgb(49,132,128)] transition-colors z-10 cursor-pointer"
+        className="absolute right-4 p-2 text-white hover:text-[rgb(var(--secondary-color))] transition-colors z-10 cursor-pointer"
         disabled={images.length <= 1}
       >
         <ChevronRight size={48} />

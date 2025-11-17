@@ -9,9 +9,12 @@ export function ImageThumbnail({ images, onClick }: ImageThumbnailProps) {
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="relative w-80 h-52 cursor-pointer group" onClick={onClick}>
+    <div
+      className="relative w-full md:w-80 h-52 cursor-pointer group"
+      onClick={onClick}
+    >
       {/* Main image */}
-      <div className="absolute inset-0 rounded-lg overflow-hidden border border-gray-700 group-hover:border-[rgb(49,132,128)] transition-all duration-300 shadow-lg">
+      <div className="absolute inset-0 rounded-lg overflow-hidden border border-gray-700 group-hover:border-[rgb(var(--secondary-color))] transition-all duration-300 shadow-lg">
         <img
           src={`/${images[0]}`}
           alt="Thumbnail"

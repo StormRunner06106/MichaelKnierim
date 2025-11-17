@@ -8,6 +8,8 @@ import { fetchPublications, Publication } from "@/lib/scholarApi";
 import { ImageCarousel } from "@/components/ImageCarousel";
 import { ImageThumbnail } from "@/components/ImageThumbnail";
 import { ImageGrid } from "@/components/ImageGrid";
+import { ColorThemeSelector } from "@/components/ColorThemeSelector";
+import { MobileMenu } from "@/components/MobileMenu";
 import {
   Pagination,
   PaginationContent,
@@ -31,7 +33,8 @@ import {
 const getSocialIcon = (iconName: string) => {
   const iconProps = {
     size: 20,
-    className: "text-gray-400 hover:text-[rgb(49,132,128)] transition-colors",
+    className:
+      "text-gray-400 hover:text-[rgb(var(--secondary-color))] transition-colors",
   };
 
   switch (iconName) {
@@ -248,7 +251,7 @@ export default function Home() {
           <div className="flex justify-between items-center">
             <Link
               href="/"
-              className="transition-all duration-300 cursor-pointer"
+              className="flex items-center gap-3 transition-all duration-300 cursor-pointer"
             >
               <img
                 src="/header-mark.png"
@@ -258,8 +261,15 @@ export default function Home() {
                 }`}
                 suppressHydrationWarning
               />
+              {mounted && isScrolled && (
+                <span className="hidden md:block text-white font-semibold text-lg animate-in fade-in slide-in-from-left duration-300">
+                  {PORTFOLIO_DATA.personal.name}
+                </span>
+              )}
             </Link>
-            <div className="flex space-x-6 ml-12">
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-6 ml-12">
               {PORTFOLIO_DATA.navigation.map((item) => (
                 <Link
                   key={item.href}
@@ -271,7 +281,11 @@ export default function Home() {
                   {item.label}
                 </Link>
               ))}
+              <ColorThemeSelector />
             </div>
+
+            {/* Mobile Menu */}
+            <MobileMenu navigation={PORTFOLIO_DATA.navigation} />
           </div>
         </div>
       </nav>
@@ -353,11 +367,11 @@ export default function Home() {
               const coreWorkSection = document.getElementById("core-work");
               coreWorkSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="animate-bounce p-2 rounded-full transition-colors cursor-pointer hover:bg-[rgb(49,132,128)]/20"
+            className="animate-bounce p-2 rounded-full transition-colors cursor-pointer hover:bg-[rgb(var(--secondary-color))]/20"
           >
             <ChevronDown
               size={24}
-              className="text-gray-400 hover:text-[rgb(49,132,128)] transition-colors"
+              className="text-gray-400 hover:text-[rgb(var(--secondary-color))] transition-colors"
             />
           </button>
         </div>
@@ -397,7 +411,7 @@ export default function Home() {
           {!loading && !error && publications.length > 0 && (
             <div className="max-w-4xl mx-auto">
               <div className="flex justify-center mb-6">
-                <span className="inline-block px-6 py-2 bg-[rgb(49,132,128)] text-white text-base font-semibold rounded-full">
+                <span className="inline-block px-6 py-2 bg-[rgb(var(--secondary-color))] text-white text-base font-semibold rounded-full">
                   Latest Publications
                 </span>
               </div>
@@ -407,7 +421,7 @@ export default function Home() {
                     key={index}
                     className="text-left bg-black/30 p-4 rounded-lg"
                   >
-                    <h4 className="text-lg font-semibold text-[rgb(49,132,128)] mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
+                    <h4 className="text-lg font-semibold text-[rgb(var(--secondary-color))] mb-2 whitespace-nowrap overflow-hidden text-ellipsis">
                       {publication.title}
                     </h4>
                     <p className="text-sm text-gray-300 mb-2">
@@ -424,7 +438,7 @@ export default function Home() {
                             href={publication.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[rgb(49,132,128)] hover:underline"
+                            className="text-[rgb(var(--secondary-color))] hover:underline"
                           >
                             View Paper
                           </a>
@@ -484,7 +498,7 @@ export default function Home() {
       {/* Featured Work Section */}
       <section id="featured-work" className="section-spacing relative z-20">
         <div className="portfolio-container">
-          <h2 className="featured-work-title text-center">
+          <h2 className="work-focus-title text-center">
             {PORTFOLIO_DATA.featuredWork?.title || "Featured Work"}
           </h2>
           <div className="space-y-6">
@@ -511,18 +525,47 @@ export default function Home() {
                         : category.description}
                     </p>
 
-                    {/* Image Thumbnail - Only show when collapsed */}
+                    {/* Video and Image Thumbnails - Horizontal on desktop, vertical on mobile */}
                     {!expandedCategories.includes(index) &&
-                      category.images &&
-                      category.images.length > 0 && (
-                        <div className="mt-6">
-                          <ImageThumbnail
-                            images={category.images}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              openCarousel(category.images, 0);
-                            }}
-                          />
+                      (category.videoLink ||
+                        (category.images && category.images.length > 0)) && (
+                        <div
+                          className="mt-6 flex flex-col md:flex-row gap-6"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {/* Video Thumbnail */}
+                          {category.videoLink && (
+                            <div className="relative w-full md:w-80 h-52 rounded-lg overflow-hidden border border-gray-700 hover:border-[rgb(var(--secondary-color))] transition-all duration-300 shadow-lg">
+                              <iframe
+                                src={
+                                  category.videoLink.includes("youtube.com") ||
+                                  category.videoLink.includes("youtu.be")
+                                    ? category.videoLink.replace(
+                                        "watch?v=",
+                                        "embed/"
+                                      )
+                                    : category.videoLink
+                                }
+                                width="100%"
+                                height="100%"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                className="w-full h-full"
+                              />
+                            </div>
+                          )}
+
+                          {/* Image Thumbnail */}
+                          {category.images && category.images.length > 0 && (
+                            <ImageThumbnail
+                              images={category.images}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openCarousel(category.images, 0);
+                              }}
+                            />
+                          )}
                         </div>
                       )}
                   </div>
@@ -536,18 +579,23 @@ export default function Home() {
 
                 {expandedCategories.includes(index) && (
                   <div className="featured-work-list">
-                    {/* Video Link */}
+                    {/* Video Embed */}
                     {category.videoLink && (
                       <div className="mb-6">
-                        <a
-                          href={category.videoLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-[rgb(49,132,128)] hover:underline"
-                        >
-                          <ExternalLink size={16} />
-                          Watch Video
-                        </a>
+                        <iframe
+                          src={
+                            category.videoLink.includes("youtube.com") ||
+                            category.videoLink.includes("youtu.be")
+                              ? category.videoLink.replace("watch?v=", "embed/")
+                              : category.videoLink
+                          }
+                          width="100%"
+                          height="450"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="rounded-lg"
+                        />
                       </div>
                     )}
 
@@ -600,7 +648,7 @@ export default function Home() {
       {/* Publications Section */}
       <section id="publications" className="section-spacing relative z-20">
         <div className="portfolio-container">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
             <h2 className="work-focus-title mb-0">
               {PORTFOLIO_DATA.publications?.title || "Publications"}
             </h2>
@@ -608,7 +656,7 @@ export default function Home() {
               href={`https://scholar.google.de/citations?user=${PORTFOLIO_DATA.personal.scholarId}&hl=de`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 bg-gray-900 text-gray-300 text-base font-normal rounded-md hover:bg-[rgb(49,132,128)] hover:text-white transition-all duration-300"
+              className="inline-flex items-center justify-center px-6 py-3 bg-gray-900 text-gray-300 text-base font-normal rounded-md hover:bg-[rgb(var(--secondary-color))] hover:text-white transition-all duration-300 md:self-start"
             >
               As listed on Google Scholar
             </a>
@@ -638,7 +686,7 @@ export default function Home() {
               <div className="space-y-6">
                 {publications.map((publication, index) => (
                   <div key={index} className="publication-item">
-                    <div className="flex justify-between items-start gap-6">
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-2 md:gap-6">
                       <div className="flex-1">
                         <h3 className="publication-title">
                           {publication.title}
@@ -646,7 +694,7 @@ export default function Home() {
                         <p className="publication-authors mb-2">
                           {publication.authors}
                         </p>
-                        <div className="flex items-center flex-wrap gap-4 mt-2">
+                        <div className="flex flex-col md:flex-row md:items-center md:flex-wrap gap-2 md:gap-4 mt-2">
                           <span className="publication-meta">
                             {publication.venue}
                           </span>
@@ -666,7 +714,7 @@ export default function Home() {
                           )}
                         </div>
                       </div>
-                      <span className="publication-year">
+                      <span className="publication-year md:block hidden">
                         {publication.year}
                       </span>
                     </div>
@@ -692,7 +740,7 @@ export default function Home() {
                         />
                       </PaginationItem>
 
-                      <PaginationItem>
+                      <PaginationItem className="hidden md:block">
                         <span className="text-gray-400 px-4">
                           Showing {start + 1} - {start + publications.length}
                         </span>
@@ -742,16 +790,21 @@ export default function Home() {
 
                 {/* Video Embed */}
                 {section.videoLink && (
-                  <div className="mt-6">
+                  <div className="mt-6 w-full max-w-full">
                     <iframe
-                      width="800"
+                      width="100%"
                       height="450"
                       src={section.videoLink.replace("watch?v=", "embed/")}
                       title="YouTube video"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      className="rounded-lg m-auto"
+                      className="rounded-lg max-w-full"
+                      style={{
+                        maxWidth: "800px",
+                        margin: "0 auto",
+                        display: "block",
+                      }}
                     ></iframe>
                   </div>
                 )}
@@ -777,7 +830,7 @@ export default function Home() {
       <Button
         variant="outline"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`fixed bottom-6 right-6 z-50 p-3 border-gray-600 text-gray-400 hover:text-white hover:border-[rgb(49,132,128)] hover:bg-[rgb(49,132,128)]/20 bg-black/90 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 ${
+        className={`fixed bottom-6 right-6 z-50 w-12 h-12 p-0 flex items-center justify-center border-gray-600 text-gray-400 hover:text-white hover:border-[rgb(var(--secondary-color))] hover:bg-[rgb(var(--secondary-color))]/20 bg-black/90 backdrop-blur-sm rounded-full shadow-lg transition-all duration-300 ${
           mounted && showTopButton
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-4 pointer-events-none"

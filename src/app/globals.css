@@ -4,6 +4,7 @@
 :root {
   --background: #000000;
   --foreground: #ffffff;
+  --secondary-color: 49, 132, 128;
   --card: #000000;
   --card-foreground: #ffffff;
   --popover: #000000;
