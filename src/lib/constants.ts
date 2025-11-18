@@ -3,7 +3,7 @@
 export const PORTFOLIO_DATA = {
   // Personal Information
   personal: {
-    name: "Michael Knierim",
+    name: "Michael T. Knierim",
     role: "Researcher, Academic",
     location: "Karlsruhe, Germany",
     email: "michael.knierim@kit.edu",
@@ -19,12 +19,17 @@ export const PORTFOLIO_DATA = {
 
   // Hero Section
   hero: {
-    title: "Michael Knierim",
-    subtitle: "Researcher, Academic",
-    coreWork: ["Wearable neurotechnology", "Well-being and productivity"],
-    introduction:
-      "I am a research group leader at KIT and<br>an honorary associate professor at the University of Nottingham",
+    greeting: "Hi, I'm Michael T. Knierim",
+    title: "Research Group Leader at KIT & Honorary Associate Professor at UoN",
+    coreWork: ["Wearable Neurotechnology", "Well-being and productivity"],
   },
+
+  // Landing Photos
+  landingPhotos: [
+    "Landing/1fd058a2-af3b-4943-97f4-6fa438bc1c66 2.jpg",
+    "Landing/IMG_2277.jpg",
+    "Landing/IMG_2342.JPG",
+  ],
 
   // Work Focus Section
   workFocus: {
@@ -67,7 +72,7 @@ export const PORTFOLIO_DATA = {
         description:
           "Traditional brain sensing has been confined to laboratories with bulky equipment. My research pioneers wearable EEG systems for everyday contexts – developing open-source hardware (Open-cEEGrids for gel-based ear-EEG, Open ExG Headphones with dry electrodes), algorithms (improving temporal precision for mobile EEG), and software (web apps for secure data streaming). Through lab-based and field-focused evaluations, this work bridges controlled experiments and naturalistic studies, making brain sensing as practical as heart rate monitoring and enabling continuous assessment of cognitive states in real-world environments.",
         videoLink:
-          "https://iframe.videodelivery.net/eyJraWQiOiI3YjgzNTg3NDZlNWJmNDM0MjY5YzEwZTYwMDg0ZjViYiIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0NDBjZTQ0ZWYxYzI2MmQ2OWJmMTcwOTg4NjllOTA1YSIsImV4cCI6MTc2MzM4MzkyMSwia2lkIjoiN2I4MzU4NzQ2ZTViZjQzNDI2OWMxMGU2MDA4NGY1YmIifQ.0dB5HjqTBd0Dk8WmYfuEGHUW5QMmBvN5_mm9o9ex4BBzuGds_7sX32-klalbvxlAdogfsAnxsA8DgDs3kn74Lp85Y5pGfw302wcNzQF_WHuGHkx4vmjnNbcQGDMnybGAAr_qH_5AP0dDlmTOzhTRZNBiLQrbLF4FyW0R0UfquTlgQIlLXtEKxcnq44RSR5tkpObpvdhPoaDwVa2WW1vWr-Lfvx3lGqVUXvDZPBCVwzujLUp-yln5Z8WQzjnEtG2BFH3ZWkGqk0KuQWKfVNZUJVIGrUgVAGOFPrUFocYrGKI0tJ38dwQ9C2ZJLL-RJ3EXBqDNnamgPLX96IvtgGV4lQ?poster=https%3A%2F%2Fvideodelivery.net%2FeyJraWQiOiI3YjgzNTg3NDZlNWJmNDM0MjY5YzEwZTYwMDg0ZjViYiIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0NDBjZTQ0ZWYxYzI2MmQ2OWJmMTcwOTg4NjllOTA1YSIsImV4cCI6MTc2MzM4MzkyMSwia2lkIjoiN2I4MzU4NzQ2ZTViZjQzNDI2OWMxMGU2MDA4NGY1YmIifQ.0dB5HjqTBd0Dk8WmYfuEGHUW5QMmBvN5_mm9o9ex4BBzuGds_7sX32-klalbvxlAdogfsAnxsA8DgDs3kn74Lp85Y5pGfw302wcNzQF_WHuGHkx4vmjnNbcQGDMnybGAAr_qH_5AP0dDlmTOzhTRZNBiLQrbLF4FyW0R0UfquTlgQIlLXtEKxcnq44RSR5tkpObpvdhPoaDwVa2WW1vWr-Lfvx3lGqVUXvDZPBCVwzujLUp-yln5Z8WQzjnEtG2BFH3ZWkGqk0KuQWKfVNZUJVIGrUgVAGOFPrUFocYrGKI0tJ38dwQ9C2ZJLL-RJ3EXBqDNnamgPLX96IvtgGV4lQ%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D10.0s",
+          "https://www.dropbox.com/scl/fi/blpi6heolco683v38yzkj/OpenExGHeadphones-Long.mp4?rlkey=dn0mb33vpe7tmuxo1pvbl1nrc&raw=1",
         images: [
           "Neural Wearables/open-ceegrids-2.png",
           "Neural Wearables/open-ceegrids.png",
@@ -205,7 +210,7 @@ export const PORTFOLIO_DATA = {
         videoLink: "",
         images: [
           "Live Biofeedback/2018-01-10-2.jpg",
-          "Live Biofeedback/lgbf-4.jpg",
+          "Live Biofeedback/IMG_5451.jpg",
           "Live Biofeedback/LGBFScreenshots2.png",
         ],
         selectedWorks: [
@@ -279,25 +284,26 @@ export const PORTFOLIO_DATA = {
     title: "Beyond the Research",
     sections: [
       {
-        title: "Community Engagement:",
-        text: 'Co-organizer of the <strong>Biosignals</strong> Connect ( "<strong>BioCon</strong>" ) conference series, CHI conference editor, active contributor to the <strong>OpenBCI</strong> open-source community, and advocate for <strong>transparent, privacy-preserving</strong> approaches to everyday <strong>neurotechnology</strong>. I frequently speak at public events like the <strong>Night of Sciences</strong> or the <strong>Night of Biosignals</strong>.',
+        title: "Community Engagement",
+        text: 'Co-organizer of the <strong>Biosignals</strong> Connect ( "<strong>BioCon</strong>" ) conference series, associated editor at various IS & HCI outlets (CHI, ISWC, ECIS, WI, NeuroIS), active contributor to the <strong>OpenBCI</strong> open-source community, and advocate for <strong>transparent, privacy-preserving</strong> approaches to everyday <strong>neurotechnology</strong>. I frequently speak at public events like the <strong>Night of Sciences</strong> or the <strong>Night of Biosignals</strong>.',
         videoLink: "https://www.youtube.com/watch?v=UFQmVewsxk4",
         images: [
           "Community Engagement/005fe7ec-2d6e-4c1d-9e89-78cf0add4481.JPG",
           "Community Engagement/191741d1-a06c-48d2-8489-2b0bfc72d26a 2.JPG",
-          "Community Engagement/1fd058a2-af3b-4943-97f4-6fa438bc1c66 2.JPG",
           "Community Engagement/2017-11-24-3.jpg",
           "Community Engagement/22b2c6f9-3c26-4d7e-8356-4d915219c0a1 2.jpg",
-          "Community Engagement/db0094a0-681d-49bc-8f4e-1ea32922ca7a.JPG",
+          "Community Engagement/IMG_6957 3.JPG",
+          "Community Engagement/posterHawaii.jpg",
         ],
       },
       {
-        title: "Community & Collaboration",
-        text: "Research advances through community. I'm grateful to work alongside talented doctoral researchers, master's students, and collaborators who bring fresh energy and perspectives to our projects.",
-      },
-      {
-        title: "Networks & Partnerships:",
-        text: 'Our work connects researchers across <a href="https://im.win.kit.edu/1175.php" target="_blank" rel="noopener noreferrer">KIT</a>, the <a href="https://kd2school.info/" target="_blank" rel="noopener noreferrer">KD2School Research Training Group</a>, and international partners at University of Nottingham, Politecnico di Milano, Nara Institute of Science and Technology, and institutions in Sweden and the USA. Industry collaborations with Mercedes-Benz, ABB, Bosch, and sensor manufacturers help bridge academic innovation with real-world impact.',
+        title: "Collaboration & Partnerships",
+        text: 'Research advances through community. I\'m grateful to work alongside talented doctoral researchers, students, and collaborators who bring fresh energy and perspectives to our projects. My work connects researchers across <a href="https://im.win.kit.edu/1175.php" target="_blank" rel="noopener noreferrer">KIT</a>, the <a href="https://kd2school.info/" target="_blank" rel="noopener noreferrer">KD2School Research Training Group</a>, and international partners at University of Nottingham, Politecnico di Milano, Nara Institute of Science and Technology, and institutions in Sweden and the USA. Industry collaborations with Mercedes-Benz, ABB, Bosch, and sensor manufacturers help bridge academic innovation with real-world impact.',
+        images: [
+          "Collaboration & Partnerships/IMG_1314.JPG",
+          "Collaboration & Partnerships/IMG_3287.JPG",
+          "Collaboration & Partnerships/IMG_3727.JPG",
+        ],
       },
     ],
   },

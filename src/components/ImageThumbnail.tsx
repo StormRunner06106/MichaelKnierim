@@ -14,7 +14,7 @@ export function ImageThumbnail({ images, onClick }: ImageThumbnailProps) {
       onClick={onClick}
     >
       {/* Main image */}
-      <div className="absolute inset-0 rounded-lg overflow-hidden border border-gray-700 group-hover:border-[rgb(var(--secondary-color))] transition-all duration-300 shadow-lg">
+      <div className="absolute inset-0 rounded-lg overflow-hidden border border-gray-300 group-hover:border-[rgb(var(--secondary-color))] transition-all duration-300 shadow-md">
         <img
           src={`/${images[0]}`}
           alt="Thumbnail"
@@ -26,11 +26,11 @@ export function ImageThumbnail({ images, onClick }: ImageThumbnailProps) {
       {images.length > 1 && (
         <>
           <div
-            className="absolute inset-0 rounded-lg border border-gray-700 bg-gray-800 transform -z-10"
+            className="absolute inset-0 rounded-lg border border-gray-200 bg-gray-50 transform -z-10 shadow-sm"
             style={{ transform: "rotate(3deg) translate(7px, 0px)" }}
           ></div>
           <div
-            className="absolute inset-0 rounded-lg border border-gray-700 bg-gray-900 transform -z-20"
+            className="absolute inset-0 rounded-lg border border-gray-200 bg-gray-100 transform -z-20 shadow-sm"
             style={{ transform: "rotate(6deg) translate(11px, 4px)" }}
           ></div>
 

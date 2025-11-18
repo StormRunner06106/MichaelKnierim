@@ -48,8 +48,9 @@ const PaginationLink = ({
     variant={isActive ? "outline" : "ghost"}
     size={size}
     className={cn(
-      "h-10 w-10 border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 cursor-pointer",
-      isActive && "bg-transparent text-white border-gray-400",
+      "h-10 w-10 border-gray-300 text-gray-600 hover:text-[rgb(var(--secondary-color))] hover:border-[rgb(var(--secondary-color))] hover:bg-[rgb(var(--secondary-color))]/10 cursor-pointer",
+      isActive &&
+        "bg-transparent text-[rgb(var(--secondary-color))] border-[rgb(var(--secondary-color))]",
       className
     )}
     {...props}

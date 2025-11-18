@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { ColorThemeSelector } from "./ColorThemeSelector";
 
 interface MobileMenuProps {
   navigation: Array<{ href: string; label: string }>;
@@ -32,7 +31,11 @@ export function MobileMenu({ navigation }: MobileMenuProps) {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden p-2 text-gray-400 hover:text-white transition-colors relative z-[70]"
+        className={`md:hidden p-2 transition-colors relative z-[70] ${
+          isOpen
+            ? "text-white hover:text-[rgb(var(--secondary-color))]"
+            : "text-gray-600 hover:text-[rgb(var(--secondary-color))]"
+        }`}
       >
         {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
@@ -63,26 +66,19 @@ export function MobileMenu({ navigation }: MobileMenuProps) {
                   key={item.href}
                   href={item.href}
                   onClick={handleClose}
-                  className={`text-white text-2xl font-medium hover:text-[rgb(var(--secondary-color))] transition-all duration-300 ${
+                  className={`text-2xl font-medium hover:text-[rgb(var(--secondary-color))] transition-all duration-300 ${
                     isAnimating
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-4"
                   }`}
-                  style={{ transitionDelay: `${index * 50}ms` }}
+                  style={{
+                    transitionDelay: `${index * 50}ms`,
+                    color: "white",
+                  }}
                 >
                   {item.label}
                 </Link>
               ))}
-              <div
-                className={`pt-4 transition-all duration-300 ${
-                  isAnimating
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
-                }`}
-                style={{ transitionDelay: `${navigation.length * 50}ms` }}
-              >
-                <ColorThemeSelector />
-              </div>
             </div>
           </div>
         </>
