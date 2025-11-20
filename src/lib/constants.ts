@@ -163,7 +163,7 @@ export const PORTFOLIO_DATA = {
           "Future of Work: Knowledge Work, Virtual Teamwork, Human-AI Interaction",
         description:
           "The nature of work is fundamentally transforming as digital technologies, remote collaboration, and AI assistance reshape how knowledge workers perform complex tasks. My research investigates the cognitive, physiological, and social dynamics of modern work environments, developing evidence-based approaches to support well-being, productivity, and optimal experiences in digitally-mediated settings.",
-        videoLink: "",
+        muxAssetId: "",
         images: [
           "Future of Work Knowledge Work, Virtual Teamwork, Human-AI Interaction/1-flow-ml-1.jpg",
           "Future of Work Knowledge Work, Virtual Teamwork, Human-AI Interaction/2-emobot.png",
@@ -205,7 +205,7 @@ export const PORTFOLIO_DATA = {
         title: "Live Biofeedback",
         description:
           "Advances in sensor technology enable moving biofeedback applications from clinical settings into everyday information systems. My research explores how real-time neurophysiological feedback can support self-regulation skills and enhance emotional awareness in collaborative contexts.",
-        videoLink: "",
+        muxAssetId: "",
         images: [
           "Live Biofeedback/2018-01-10-2.jpg",
           "Live Biofeedback/IMG_5451.jpg",

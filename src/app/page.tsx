@@ -615,7 +615,7 @@ export default function Home() {
                       <>
                         <div className="flex flex-col md:flex-row gap-6 mt-4">
                           {/* Media section (video and images stacked vertically) */}
-                          {(category.videoLink ||
+                          {(category.muxAssetId ||
                             (category.images &&
                               category.images.length > 0)) && (
                             <div
