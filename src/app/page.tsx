@@ -9,6 +9,7 @@ import { ImageCarousel } from "@/components/ImageCarousel";
 import { ImageThumbnail } from "@/components/ImageThumbnail";
 import { ImageGrid } from "@/components/ImageGrid";
 import { MobileMenu } from "@/components/MobileMenu";
+import { MuxVideoPlayer } from "@/components/MuxVideoPlayer";
 import {
   Pagination,
   PaginationContent,
@@ -313,7 +314,7 @@ export default function Home() {
               suppressHydrationWarning
             />
             {mounted && isScrolled && (
-              <span className="hidden md:block text-black font-semibold text-lg">
+              <span className="hidden md:block text-[rgb(var(--secondary-color))] font-semibold text-lg">
                 {PORTFOLIO_DATA.personal.name}
               </span>
             )}
@@ -622,43 +623,13 @@ export default function Home() {
                               onClick={(e) => e.stopPropagation()}
                             >
                               {/* Video Thumbnail */}
-                              {category.videoLink && (
+                              {category.muxAssetId && (
                                 <div className="relative w-full md:w-80 h-52 rounded-lg overflow-hidden border border-gray-300 hover:border-[rgb(var(--secondary-color))] transition-all duration-300 shadow-lg flex-shrink-0">
-                                  {category.videoLink.includes(
-                                    "dropbox.com"
-                                  ) ? (
-                                    <video
-                                      src={`${category.videoLink}#t=0.1`}
-                                      controls
-                                      preload="metadata"
-                                      className="w-full h-full object-cover"
-                                      onLoadedMetadata={(e) => {
-                                        const video =
-                                          e.target as HTMLVideoElement;
-                                        video.currentTime = 0.1;
-                                      }}
-                                    />
-                                  ) : (
-                                    <iframe
-                                      src={
-                                        category.videoLink.includes(
-                                          "youtube.com"
-                                        ) ||
-                                        category.videoLink.includes("youtu.be")
-                                          ? category.videoLink.replace(
-                                              "watch?v=",
-                                              "embed/"
-                                            )
-                                          : category.videoLink
-                                      }
-                                      width="100%"
-                                      height="100%"
-                                      frameBorder="0"
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                      allowFullScreen
-                                      className="w-full h-full"
-                                    />
-                                  )}
+                                  <MuxVideoPlayer
+                                    playbackId={category.muxAssetId}
+                                    className="w-full h-full"
+                                    thumbnailTime={10}
+                                  />
                                 </div>
                               )}
 
@@ -756,35 +727,13 @@ export default function Home() {
                 {expandedCategories.includes(index) && (
                   <div className="featured-work-list">
                     {/* Video Embed */}
-                    {category.videoLink && (
-                      <div className="mb-6">
-                        {category.videoLink.includes("dropbox.com") ? (
-                          <video
-                            src={category.videoLink}
-                            controls
-                            preload="metadata"
-                            className="w-full rounded-lg"
-                            style={{ maxHeight: "450px" }}
-                          />
-                        ) : (
-                          <iframe
-                            src={
-                              category.videoLink.includes("youtube.com") ||
-                              category.videoLink.includes("youtu.be")
-                                ? category.videoLink.replace(
-                                    "watch?v=",
-                                    "embed/"
-                                  )
-                                : category.videoLink
-                            }
-                            width="100%"
-                            height="450"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            className="rounded-lg"
-                          />
-                        )}
+                    {category.muxAssetId && (
+                      <div className="mb-6 w-full max-w-4xl mx-auto">
+                        <MuxVideoPlayer
+                          playbackId={category.muxAssetId}
+                          className="w-full rounded-lg"
+                          thumbnailTime={10}
+                        />
                       </div>
                     )}
 

@@ -53,9 +53,9 @@
 }
 
 .work-focus-text em {
-  font-style: italic;
+  font-style: normal;
   color: rgb(var(--secondary-color));
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .hero-avatar {

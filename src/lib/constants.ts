@@ -71,8 +71,7 @@ export const PORTFOLIO_DATA = {
         title: "Neural Wearables",
         description:
           "Traditional brain sensing has been confined to laboratories with bulky equipment. My research pioneers wearable EEG systems for everyday contexts – developing open-source hardware (Open-cEEGrids for gel-based ear-EEG, Open ExG Headphones with dry electrodes), algorithms (improving temporal precision for mobile EEG), and software (web apps for secure data streaming). Through lab-based and field-focused evaluations, this work bridges controlled experiments and naturalistic studies, making brain sensing as practical as heart rate monitoring and enabling continuous assessment of cognitive states in real-world environments.",
-        videoLink:
-          "https://www.dropbox.com/scl/fi/blpi6heolco683v38yzkj/OpenExGHeadphones-Long.mp4?rlkey=dn0mb33vpe7tmuxo1pvbl1nrc&raw=1",
+        muxAssetId: "00w8b00pKJXWMUn1wcGmCV02tFwpsd5Xv012by9fJ7NZoDA",
         images: [
           "Neural Wearables/open-ceegrids-2.png",
           "Neural Wearables/open-ceegrids.png",
@@ -118,8 +117,7 @@ export const PORTFOLIO_DATA = {
           "Fostering Positive Experiences: Flow, Mental Workload & Mental Fatigue",
         description:
           "Understanding and fostering positive psychological experiences at work – particularly flow states – while managing mental workload and fatigue is crucial for sustainable productivity and well-being. My research investigates these interconnected phenomena using both physiological measurement (EEG, ECG) and experience sampling methods to capture their dynamics in real-world work contexts. By identifying when people are in optimal cognitive states versus experiencing overload or fatigue, this work enables the development of systems that support mental readiness and recovery, ultimately fostering healthier and more productive work experiences.",
-        videoLink:
-          "https://iframe.videodelivery.net/eyJraWQiOiI3YjgzNTg3NDZlNWJmNDM0MjY5YzEwZTYwMDg0ZjViYiIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0ZThmNjhhODI2MDMzZDk5MmFiYzRkN2E1MTA2YzZiYyIsImV4cCI6MTc2MzM4NDg1MSwia2lkIjoiN2I4MzU4NzQ2ZTViZjQzNDI2OWMxMGU2MDA4NGY1YmIifQ.XCXqYyV_ZhoLFIi4Zp20w60xi5TKUrO5DrcW31faaXzibul3wTrc8UufITIpTiJg3jpiTr5TW00VaX-dtW2wAg9y0mnRdp1ZLt3N_pXkUztK9xk76eFZZiUTI2usovVynhfBSCPQpHCIxbnYDIDKhy7nRqB70zGP4O-XwE34V4G9mEG2z5RsY3WsdvzwqFAZ0anAcF6lblzn2GIFcEsFswtwj8pwQ3DUu511fSZpntXOlwUfxzrk0c-A2bfH99d3c1vpcpNbYvGuZy15vYyldAYgIuQZzp16cSfVylcp4sMb3L79Z2CjtTbICtPOpfaCWJgmkU_x4VZEJJk8Gz_VOg?poster=https%3A%2F%2Fvideodelivery.net%2FeyJraWQiOiI3YjgzNTg3NDZlNWJmNDM0MjY5YzEwZTYwMDg0ZjViYiIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0ZThmNjhhODI2MDMzZDk5MmFiYzRkN2E1MTA2YzZiYyIsImV4cCI6MTc2MzM4NDg1MSwia2lkIjoiN2I4MzU4NzQ2ZTViZjQzNDI2OWMxMGU2MDA4NGY1YmIifQ.XCXqYyV_ZhoLFIi4Zp20w60xi5TKUrO5DrcW31faaXzibul3wTrc8UufITIpTiJg3jpiTr5TW00VaX-dtW2wAg9y0mnRdp1ZLt3N_pXkUztK9xk76eFZZiUTI2usovVynhfBSCPQpHCIxbnYDIDKhy7nRqB70zGP4O-XwE34V4G9mEG2z5RsY3WsdvzwqFAZ0anAcF6lblzn2GIFcEsFswtwj8pwQ3DUu511fSZpntXOlwUfxzrk0c-A2bfH99d3c1vpcpNbYvGuZy15vYyldAYgIuQZzp16cSfVylcp4sMb3L79Z2CjtTbICtPOpfaCWJgmkU_x4VZEJJk8Gz_VOg%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D10.0s",
+        muxAssetId: "B02aNPDeR9gtjhkR02upoYvS8V2GW5BGvtKw7YVDFOJTg",
         images: [],
         selectedWorks: [
           {
@@ -234,11 +232,11 @@ export const PORTFOLIO_DATA = {
         title: "Beyond Sensing: Actuating perception and environments",
         description:
           "Moving beyond passive sensing, my research explores how actively manipulating physical environments and perceptual experiences can enhance human comfort, well-being, and interaction. This work investigates thermal actuation systems, gaze-based interaction paradigms, and human-centric automation approaches that recognize psychological needs alongside technical capabilities.",
-        videoLink:
-          "https://iframe.videodelivery.net/eyJraWQiOiI3YjgzNTg3NDZlNWJmNDM0MjY5YzEwZTYwMDg0ZjViYiIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJiMzRiZjNjNzA3ZTQ5MTA2Mjg5MzAxMTNkMmM3YjQ0YiIsImV4cCI6MTc2MzM4NDk5NSwia2lkIjoiN2I4MzU4NzQ2ZTViZjQzNDI2OWMxMGU2MDA4NGY1YmIifQ.yTGZlxbMZd74E8PyHrpNoH0Y90rfu2-TtueauTsFbUUO_uxE3l-AqtP8mTUS7JHL9yrV23tEgx-R0tBr6o-lTRTNcOGikPZsuexTYYLTDCCWjM6-QK0YbA26ooSc5zv7sBY79-g7kv6kxav4OT_YqhByxSmwYNdHmF30c3m_BzPmRt8-grRJVzg-D0TkQksYRx3LRvPlAeaDtLLJlzyRHOEXtUisY5TlddZ6Xavk25krHkU4MyfXXAfBooQR-MQYyEOXWh8EuFnTkE77dSG7wpLY9llJxbuvIcS0LmrGFgVX4I16b_hGKTRKK0uKq3nPWAIXvwhIYWmBVBDppivt_A?poster=https%3A%2F%2Fvideodelivery.net%2FeyJraWQiOiI3YjgzNTg3NDZlNWJmNDM0MjY5YzEwZTYwMDg0ZjViYiIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJiMzRiZjNjNzA3ZTQ5MTA2Mjg5MzAxMTNkMmM3YjQ0YiIsImV4cCI6MTc2MzM4NDk5NSwia2lkIjoiN2I4MzU4NzQ2ZTViZjQzNDI2OWMxMGU2MDA4NGY1YmIifQ.yTGZlxbMZd74E8PyHrpNoH0Y90rfu2-TtueauTsFbUUO_uxE3l-AqtP8mTUS7JHL9yrV23tEgx-R0tBr6o-lTRTNcOGikPZsuexTYYLTDCCWjM6-QK0YbA26ooSc5zv7sBY79-g7kv6kxav4OT_YqhByxSmwYNdHmF30c3m_BzPmRt8-grRJVzg-D0TkQksYRx3LRvPlAeaDtLLJlzyRHOEXtUisY5TlddZ6Xavk25krHkU4MyfXXAfBooQR-MQYyEOXWh8EuFnTkE77dSG7wpLY9llJxbuvIcS0LmrGFgVX4I16b_hGKTRKK0uKq3nPWAIXvwhIYWmBVBDppivt_A%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D10.0s",
+        muxAssetId: "02g7ookgTWwdeclUUXnGTpEXLOJqA02Eucs9ObHtPo9x00",
         images: [
           "Beyond Sensing/heatables-2.png",
           "Beyond Sensing/heatables.png",
+          "Beyond Sensing/smartHomes.png",
         ],
         selectedWorks: [
           {
